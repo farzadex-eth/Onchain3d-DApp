@@ -157,7 +157,7 @@ function TokenView() {
                                         <p className="settingrow rowanim">Opacity: {token.settings.opacity}%</p>
                                         <p className="settingrow rowanim">Rotating Mode: {token.settings.rotating_mode ? "ON" : "OFF"}</p>
                                         <p className="settingrow rowanim">Angular Speed: {token.settings.angular_speed_deg} (deg / 15 minutes)</p>
-                                        <p className="settingrow rowanim">View Mode: {token.settings.dist_v_normalize ? "Normalized" : "From Distance"}, {token.settings.face_or_wire ? "Wirefram" : "Faces"}</p>
+                                        <p className="settingrow rowanim">View Mode: {!token.settings.dist_v_normalize ? "Normalized" : "From Distance"}, {!token.settings.face_or_wire ? "Wireframe" : "Faces"}</p>
                                         <p className="settingrow">
                                             <span className="rowanim">Wireframe Color: {numberToColor(token.settings.wire_color)}</span>
                                             <ColorBox color={numberToColor(token.settings.wire_color)} />
