@@ -384,7 +384,7 @@ export function ContractProvider({ children }) {
         }
       ];
 
-    const web3 = new Web3("http://testnode.outofcontext.tech:8989");
+    const web3 = new Web3("https://testnode.outofcontext.tech:8990");
     const contract = new web3.eth.Contract(contractABI, contractAdr);
 
     const getTokenURI = async (tokenId) => {

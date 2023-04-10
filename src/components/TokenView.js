@@ -135,7 +135,7 @@ function TokenView() {
                                 }}
                             >
                                 <Grid item xs="12" sm="6">
-                                    <TokenSVG data={token.svg} tid={token.tid} shape={shapes[token.tid%5].name}/>
+                                    <TokenSVG data={token.svg} tid={token.tid} shape={shapes[token.tid % 5].name} />
                                 </Grid>
                                 <Grid item xs="12" sm="6">
                                     <Grid
@@ -153,8 +153,8 @@ function TokenView() {
                                             Token Settings
                                             <hr />
                                         </h5>
-                                        <p className="settingrow rowanim">Observer Position: X: {token.settings.observer[0]}, Y: {token.settings.observer[1]}, Z: {token.settings.observer[2]}</p>
-                                        <p className="settingrow rowanim">Opacity: {token.settings.opacity}</p>
+                                        <p className="settingrow rowanim">Observer Position: X: {token.settings.observer[0]/(2**64)}, Y: {token.settings.observer[1]/(2**64)}, Z: {token.settings.observer[2]/(2**64)}</p>
+                                        <p className="settingrow rowanim">Opacity: {token.settings.opacity}%</p>
                                         <p className="settingrow rowanim">Rotating Mode: {token.settings.rotating_mode ? "ON" : "OFF"}</p>
                                         <p className="settingrow rowanim">Angular Speed: {token.settings.angular_speed_deg} (deg / 15 minutes)</p>
                                         <p className="settingrow rowanim">View Mode: {token.settings.dist_v_normalize ? "Normalized" : "From Distance"}, {token.settings.face_or_wire ? "Wirefram" : "Faces"}</p>
@@ -163,19 +163,17 @@ function TokenView() {
                                             <ColorBox color={numberToColor(token.settings.wire_color)} />
                                         </p>
                                         <p className="settingrow">
-                                            {
-                                                token.settings.color_list.length === 0 &&
-                                                <Grid
-                                                  container
-                                                  spacing={1}
-                                                  direction="row"
-                                                  justify="flex-start"
-                                                  alignItems="flex-start"
-                                                  alignContent="stretch"
-                                                  wrap="wrap"
-                                                >
-                                                    <Grid item xs="12" className="rowanim">Face Colors:</Grid>
-                                                    {
+                                            <Grid
+                                                container
+                                                spacing={1}
+                                                direction="row"
+                                                justify="flex-start"
+                                                alignItems="flex-start"
+                                                alignContent="stretch"
+                                                wrap="wrap"
+                                            >
+                                                <Grid item xs="12" className="rowanim">Face Colors: </Grid>
+                                                {
                                                         token.settings.color_list.length === 0 &&
                                                         defaultColors.slice(0, shapes[token.tid % 5].faces).map((num, index) => (
                                                             <Grid item xs="3">
@@ -193,9 +191,7 @@ function TokenView() {
                                                             </Grid>
                                                         ))
                                                     }
-
-                                                </Grid>
-                                            }
+                                            </Grid>
                                         </p>
                                     </Grid>
                                 </Grid>
