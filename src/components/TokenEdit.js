@@ -1,6 +1,6 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import ContractContext from '../ContractContext';
-import { Box, Container, TextField, Typography, Button, Grid, LinearProgress } from '@mui/material';
+import { Box, Container, Typography, Button, Grid, LinearProgress } from '@mui/material';
 import TokenSVG from './TokenSVG';
 import ColorBox from './ColorBox';
 
@@ -35,30 +35,23 @@ const shapes = [
     { name: "Icosahedron", faces: 20 },
 ]
 
-function TokenView({ token, setToken, setMode }) {
+function TokenEdit({ token, setToken, setMode }) {
 
-    const { renderTokenById, getSetting } = useContext(ContractContext);
-    const [tid, setTid] = useState(token.tid);
+    const { getTokenPreview, getSetting } = useContext(ContractContext);
+    const [tid, setTid] = useState(0);
     const [loading, setLoading] = useState(false);
-    // const [token, setToken] = useState({ tid: 0, svg: "", settings: [] });
+    const [preview, setPreview] = useState({ tid: 0, svg: "", settings: [] });
 
-    const handleInput = (e) => {
-        const val = parseInt(e.target.value);
-        if (isNaN(val)) {
-            setTid(0);
-            return;
-        }
-        setTid(Math.max(0, Math.min(val, 499)));
-    }
-
-    const fetchToken = async (e) => {
-        e.preventDefault();
+    const fetchTokenPrev = async () => {
+        // e.preventDefault();
+        console.log('h')
         setLoading(true);
         try {
-            const svg = await renderTokenById(tid);
-            const settings = await getSetting(tid);
-            setToken((prev) => ({ ...prev, svg: svg, tid: tid, settings: settings[1] }));
-            console.log(settings)
+            const svg = await getTokenPreview(token.tid, token.settings);
+            // const svg = await renderTokenById(tid);
+            // const settings = await getSetting(tid);
+            // setToken((prev) => ({ ...prev, svg: svg, tid: tid, settings: settings }));
+            console.log(svg);
         } catch (e) {
             console.error(e);
         } finally {
@@ -75,9 +68,13 @@ function TokenView({ token, setToken, setMode }) {
         return "rgb(" + [r, g, b].join(",") + ")";
     }
 
-    const goToEditMode = () => {
-        setMode(1);
+    const goToViewMode = () => {
+        setMode(0);
     }
+
+    useEffect(() => {
+        fetchTokenPrev();
+    }, [preview])
 
     return (
         <>
@@ -89,30 +86,11 @@ function TokenView({ token, setToken, setMode }) {
                             fontFamily: "monospace"
                         }}
                     >
-                        View Token
+                        <Button variant="outlined" sx={{mx: '2rem'}} onClick={goToViewMode}> &lt; Back to View</Button>
+                        Edit Token #{token.tid}
                         <hr />
                     </Typography>
-                    <form className='boxrow' onSubmit={fetchToken}>
-                        <div className='boxel'>
-                            <TextField id="outlined-basic" label="Token #" variant="outlined"
-                                inputProps={{ style: { fontFamily: 'monospace' } }}
-                                InputLabelProps={{ style: { fontFamily: 'monospace' } }}
-                                value={tid}
-                                onChange={handleInput}
-                                onSubmit={fetchToken}
-                            />
-                        </div>
-                        <div className='boxel'>
-                            <Button variant="contained"
-                                sx={{
-                                    fontFamily: 'monospace',
-                                }}
-                                onClick={fetchToken}
-                            >
-                                Fetch Token
-                            </Button>
-                        </div>
-                    </form>
+
                     <Box className="">
                         {
                             loading &&
@@ -139,7 +117,7 @@ function TokenView({ token, setToken, setMode }) {
                                 }}
                             >
                                 <Grid item xs="12" sm="6">
-                                    <TokenSVG data={token.svg} tid={token.tid} shape={shapes[token.tid % 5].name} />
+                                    <TokenSVG data={preview.svg} tid={token.tid} shape={shapes[token.tid % 5].name} />
                                 </Grid>
                                 <Grid item xs="12" sm="6">
                                     <Grid
@@ -155,7 +133,6 @@ function TokenView({ token, setToken, setMode }) {
                                     >
                                         <h5>
                                             Token Settings
-                                            <Button variant="outlined" sx={{mx: '2rem'}} onClick={goToEditMode}>Change Settings</Button>
                                             <hr />
                                         </h5>
                                         <p className="settingrow rowanim">Observer Position: X: {token.settings.observer[0] / (2 ** 64)}, Y: {token.settings.observer[1] / (2 ** 64)}, Z: {token.settings.observer[2] / (2 ** 64)}</p>
@@ -209,4 +186,4 @@ function TokenView({ token, setToken, setMode }) {
     )
 }
 
-export default TokenView
+export default TokenEdit

@@ -50,7 +50,7 @@
   width: 100%;
   border: 1px solid grey;
   margin: 3rem 0;
-  background: rgba(245, 244, 219, 0.4);
+  background: rgba(247, 246, 228, 0.4);
   border-radius: 16px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(4.5px);
@@ -73,7 +73,7 @@
   width: 90%;
   border: 3px solid black;
   border-radius: 5%;
-  background-color: rgba(0, 0, 0, 0.5);
+  /* background-color: rgba(0, 0, 0, 0.5); */
 }
 
 .settingrow {

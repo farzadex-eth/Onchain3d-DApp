@@ -1,7 +1,7 @@
 import './App.css';
 import Background from './components/Background';
+import MainPage from './components/MainPage';
 import Navbar from './components/Navbar';
-import TokenView from './components/TokenView';
 import { ContractProvider } from './ContractContext';
 import { WalletProvider } from './WalletContext';
 
@@ -12,7 +12,7 @@ function App() {
         <ContractProvider>
           <Background />
           <Navbar />
-          <TokenView />
+          <MainPage />
         </ContractProvider>
       </WalletProvider>
     </div>
