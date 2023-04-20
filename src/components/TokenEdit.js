@@ -44,13 +44,13 @@ function TokenEdit({ token, setToken, setMode }) {
 
     const fetchTokenPrev = async () => {
         // e.preventDefault();
-        console.log('h')
+        // console.log('h')
         setLoading(true);
         try {
             const svg = await getTokenPreview(token.tid, token.settings);
             // const svg = await renderTokenById(tid);
             // const settings = await getSetting(tid);
-            // setToken((prev) => ({ ...prev, svg: svg, tid: tid, settings: settings }));
+            setPreview((prev) => ({ ...prev, svg: svg, tid: tid }));
             console.log(svg);
         } catch (e) {
             console.error(e);
@@ -74,7 +74,7 @@ function TokenEdit({ token, setToken, setMode }) {
 
     useEffect(() => {
         fetchTokenPrev();
-    }, [preview])
+    }, [])
 
     return (
         <>
@@ -143,6 +143,10 @@ function TokenEdit({ token, setToken, setMode }) {
                                         <p className="settingrow">
                                             <span className="rowanim">Wireframe Color: {numberToColor(token.settings.wire_color)}</span>
                                             <ColorBox color={numberToColor(token.settings.wire_color)} />
+                                        </p>
+                                        <p className="settingrow">
+                                            <span className="rowanim">Background Color: {numberToColor(token.settings.back_color)}</span>
+                                            <ColorBox color={numberToColor(token.settings.back_color)} />
                                         </p>
                                         <p className="settingrow">
                                             <Grid

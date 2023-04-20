@@ -8,7 +8,7 @@ export function ContractProvider({ children }) {
 
   const { account } = useContext(WalletContext);
 
-  // Tiny Dinos (eth) contract example
+  // Contract
   const contractAdr = '0xD3ea4434d62Abc941397f1A09f72517cBE31E7F2';
   const contractABI = [
     {
@@ -439,18 +439,45 @@ export function ContractProvider({ children }) {
     }
   }
 
+  /* global BigInt */
+  const compressSettings = (settings) => {
+    const compressed = 0n +
+      BigInt(settings.rotating_mode * 1) +
+      BigInt(settings.dist_v_normalize * 2) +
+      BigInt(settings.face_or_wire * 2 ** 2) +
+      BigInt(settings.opacity * 2 ** 8) +
+      BigInt(settings.angular_speed_deg * 2 ** 16) +
+      BigInt(settings.wire_color * 2 ** 32) +
+      BigInt(settings.back_color * 2 ** 56);
+
+    return compressed;
+  }
+
+  const colorListToBytes = (arr) => {
+    let hexString = "0x";
+    arr.forEach((num) => {
+      hexString += web3.utils.padLeft(web3.utils.numberToHex(num), 6).replace('0x', '');
+    })
+    // return web3.utils.hexToBytes(hexString);
+    return hexString;
+  }
+
+  const shapes = [
+    { name: "Tetrahedron", faces: 4 },
+    { name: "Cube", faces: 6 },
+    { name: "Octahedron", faces: 8 },
+    { name: "Dodecahedron", faces: 12 },
+    { name: "Icosahedron", faces: 20 },
+  ]
+
   const getTokenPreview = async (tid, settings) => {
+    console.log(colorListToBytes(settings.color_list.slice(0, shapes[tid%5].faces)))
     try {
       const prev = await contract.methods.previewTokenById(
         tid,
-        settings.observer,
-        settings.opacity,
-        settings.rotating_mode,
-        settings.angular_speed_deg,
-        settings.dist_v_normalized,
-        settings.face_or_wire,
-        settings.wire_color,
-        settings.color_list
+        settings.observer.map(p => BigInt(p)),
+        compressSettings(settings),
+        colorListToBytes(settings.color_list.slice(0, shapes[tid%5].faces))
       ).call();
       return prev;
     } catch (e) {

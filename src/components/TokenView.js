@@ -168,6 +168,10 @@ function TokenView({ token, setToken, setMode }) {
                                             <ColorBox color={numberToColor(token.settings.wire_color)} />
                                         </p>
                                         <p className="settingrow">
+                                            <span className="rowanim">Background Color: {numberToColor(token.settings.back_color)}</span>
+                                            <ColorBox color={numberToColor(token.settings.back_color)} />
+                                        </p>
+                                        <p className="settingrow">
                                             <Grid
                                                 container
                                                 spacing={1}
