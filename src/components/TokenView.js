@@ -193,8 +193,8 @@ function TokenView({ token, setToken, setMode }) {
                                                 }
                                                 {
                                                     token.settings.color_list.length > 0 &&
-                                                    token.settings.color_list.map((num, index) => (
-                                                        <Grid item xs="3">
+                                                    token.settings.color_list.slice(0, shapes[token.tid % 5].faces).map((num, index) => (
+                                                        <Grid item xs="3" key={index}>
                                                             {index < 10 ? <span>&nbsp;{index}</span> : index}
                                                             <ColorBox key={index} color={numberToColor(num)} />
                                                         </Grid>
