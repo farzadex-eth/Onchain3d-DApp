@@ -3,6 +3,7 @@ import ContractContext from '../ContractContext';
 import { Box, Container, Typography, Button, Grid, LinearProgress } from '@mui/material';
 import TokenSVG from './TokenSVG';
 import ColorBox from './ColorBox';
+import ObserverInput from './ObserverInput';
 
 const defaultColors = [
     16761600,
@@ -38,20 +39,24 @@ const shapes = [
 function TokenEdit({ token, setToken, setMode }) {
 
     const { getTokenPreview, getSetting } = useContext(ContractContext);
-    const [tid, setTid] = useState(0);
     const [loading, setLoading] = useState(false);
-    const [preview, setPreview] = useState({ tid: 0, svg: "", settings: [] });
+    const [preview, setPreview] = useState({ ...token });
+
+    const updateSetting = (attr, data) => {
+        let temp = {...preview.settings, [attr]: data}
+        setPreview((prev) => ({ ...prev,  settings: temp}));
+    }
 
     const fetchTokenPrev = async () => {
         // e.preventDefault();
         // console.log('h')
         setLoading(true);
         try {
-            const svg = await getTokenPreview(token.tid, token.settings);
+            const svg = await getTokenPreview(preview.tid, preview.settings);
             // const svg = await renderTokenById(tid);
             // const settings = await getSetting(tid);
-            setPreview((prev) => ({ ...prev, svg: svg, tid: tid }));
-            console.log(svg);
+            setPreview((prev) => ({ ...prev, svg: svg }));
+            // console.log(svg);
         } catch (e) {
             console.error(e);
         } finally {
@@ -72,9 +77,13 @@ function TokenEdit({ token, setToken, setMode }) {
         setMode(0);
     }
 
+    const resetAll = () => {
+        setPreview((prev) => ({...prev, settings: token.settings}));
+    }
+
     useEffect(() => {
         fetchTokenPrev();
-    }, [])
+    }, [preview.settings])
 
     return (
         <>
@@ -86,103 +95,107 @@ function TokenEdit({ token, setToken, setMode }) {
                             fontFamily: "monospace"
                         }}
                     >
-                        <Button variant="outlined" sx={{mx: '2rem'}} onClick={goToViewMode}> &lt; Back to View</Button>
+                        <Button variant="outlined" sx={{ mx: '2rem' }} onClick={goToViewMode}> &lt; Back to View</Button>
                         Edit Token #{token.tid}
                         <hr />
                     </Typography>
 
                     <Box className="">
-                        {
-                            loading &&
-                            <LinearProgress
-                                sx={{
-                                    width: "80%",
-                                    my: "3rem",
-                                    mx: "auto"
-                                }}
-                            />
-                        }
-                        {
-                            !loading && token.svg &&
-                            <Grid
-                                container
-                                spacing={1}
-                                direction="row"
-                                justify="flex-start"
-                                alignItems="flex-start"
-                                alignContent="stretch"
-                                wrap="wrap"
-                                sx={{
-                                    my: '2rem'
-                                }}
-                            >
+                        <Grid
+                            container
+                            spacing={1}
+                            direction="row"
+                            justify="flex-start"
+                            alignItems="flex-start"
+                            alignContent="stretch"
+                            wrap="wrap"
+                            sx={{
+                                my: '2rem'
+                            }}
+                        >
+                            {
+                                loading &&
+                                <Grid item xs="12" sm="6">
+                                    <LinearProgress
+                                        sx={{
+                                            width: "80%",
+                                            my: "3rem",
+                                            mx: "auto"
+                                        }}
+                                    />
+                                </Grid>
+                            }
+                            {
+                                !loading && token.svg &&
                                 <Grid item xs="12" sm="6">
                                     <TokenSVG data={preview.svg} tid={token.tid} shape={shapes[token.tid % 5].name} />
                                 </Grid>
-                                <Grid item xs="12" sm="6">
-                                    <Grid
-                                        container
-                                        direction="column"
-                                        justify="flex-end"
-                                        alignItems="flex-start"
-                                        alignContent="stretch"
-                                        wrap="wrap"
-                                        sx={{
-                                            width: "90%"
-                                        }}
-                                    >
-                                        <h5>
-                                            Token Settings
-                                            <hr />
-                                        </h5>
-                                        <p className="settingrow rowanim">Observer Position: X: {token.settings.observer[0] / (2 ** 64)}, Y: {token.settings.observer[1] / (2 ** 64)}, Z: {token.settings.observer[2] / (2 ** 64)}</p>
-                                        <p className="settingrow rowanim">Opacity: {token.settings.opacity}%</p>
-                                        <p className="settingrow rowanim">Rotating Mode: {token.settings.rotating_mode ? "ON" : "OFF"}</p>
-                                        <p className="settingrow rowanim">Angular Speed: {token.settings.angular_speed_deg} (deg / 15 minutes)</p>
-                                        <p className="settingrow rowanim">View Mode: {!token.settings.dist_v_normalize ? "Normalized" : "From Distance"}, {!token.settings.face_or_wire ? "Wireframe" : "Faces"}</p>
-                                        <p className="settingrow">
-                                            <span className="rowanim">Wireframe Color: {numberToColor(token.settings.wire_color)}</span>
-                                            <ColorBox color={numberToColor(token.settings.wire_color)} />
-                                        </p>
-                                        <p className="settingrow">
-                                            <span className="rowanim">Background Color: {numberToColor(token.settings.back_color)}</span>
-                                            <ColorBox color={numberToColor(token.settings.back_color)} />
-                                        </p>
-                                        <p className="settingrow">
-                                            <Grid
-                                                container
-                                                spacing={1}
-                                                direction="row"
-                                                justify="flex-start"
-                                                alignItems="flex-start"
-                                                alignContent="stretch"
-                                                wrap="wrap"
-                                            >
-                                                <Grid item xs="12" className="rowanim">Face Colors: </Grid>
-                                                {
-                                                    token.settings.color_list.length === 0 &&
-                                                    defaultColors.slice(0, shapes[token.tid % 5].faces).map((num, index) => (
-                                                        <Grid item xs="3">
-                                                            {index < 10 ? <span>&nbsp;{index}</span> : index}
-                                                            <ColorBox key={index} color={numberToColor(num)} />
-                                                        </Grid>
-                                                    ))
-                                                }
-                                                {
-                                                    token.settings.color_list.length > 0 &&
-                                                    token.settings.color_list.slice(0, shapes[token.tid % 5].faces).map((num, index) => (
-                                                        <Grid item xs="3" key={index}>
-                                                            {index < 10 ? <span>&nbsp;{index}</span> : index}
-                                                            <ColorBox key={index} color={numberToColor(num)} />
-                                                        </Grid>
-                                                    ))
-                                                }
-                                            </Grid>
-                                        </p>
-                                    </Grid>
+                            }
+                            <Grid item xs="12" sm="6">
+                                <Grid
+                                    container
+                                    direction="column"
+                                    justify="flex-end"
+                                    alignItems="flex-start"
+                                    alignContent="stretch"
+                                    wrap="wrap"
+                                    sx={{
+                                        width: "90%"
+                                    }}
+                                >
+                                    <h5>
+                                        Token Settings
+                                        <Button variant='outlined' color="warning" onClick={resetAll}>Reset ALL</Button>
+                                        <hr />
+                                    </h5>
+                                    <p className="settingrow rowanim">Observer Position: X: {token.settings.observer[0] / (2 ** 64)}, Y: {token.settings.observer[1] / (2 ** 64)}, Z: {token.settings.observer[2] / (2 ** 64)}</p>
+                                    <div className="settingrow rowanim">Opacity: <ObserverInput name="opacity" update={updateSetting} defaultValue={token.settings.opacity} unit="%" preview={preview} /></div>
+                                    <p className="settingrow rowanim">Rotating Mode: {token.settings.rotating_mode ? "ON" : "OFF"}</p>
+                                    <p className="settingrow rowanim">Angular Speed: {token.settings.angular_speed_deg} (deg / 15 minutes)</p>
+                                    <p className="settingrow rowanim">View Mode: {!token.settings.dist_v_normalize ? "Normalized" : "From Distance"}, {!token.settings.face_or_wire ? "Wireframe" : "Faces"}</p>
+                                    <p className="settingrow">
+                                        <span className="rowanim">Wireframe Color: {numberToColor(token.settings.wire_color)}</span>
+                                        <ColorBox color={numberToColor(token.settings.wire_color)} />
+                                    </p>
+                                    <p className="settingrow">
+                                        <span className="rowanim">Background Color: {numberToColor(token.settings.back_color)}</span>
+                                        <ColorBox color={numberToColor(token.settings.back_color)} />
+                                    </p>
+                                    <p className="settingrow">
+                                        <Grid
+                                            container
+                                            spacing={1}
+                                            direction="row"
+                                            justify="flex-start"
+                                            alignItems="flex-start"
+                                            alignContent="stretch"
+                                            wrap="wrap"
+                                        >
+                                            <Grid item xs="12" className="rowanim">Face Colors: </Grid>
+                                            {
+                                                token.settings.color_list.length === 0 &&
+                                                defaultColors.slice(0, shapes[token.tid % 5].faces).map((num, index) => (
+                                                    <Grid item xs="3">
+                                                        {index < 10 ? <span>&nbsp;{index}</span> : index}
+                                                        <ColorBox key={index} color={numberToColor(num)} />
+                                                    </Grid>
+                                                ))
+                                            }
+                                            {
+                                                token.settings.color_list.length > 0 &&
+                                                token.settings.color_list.slice(0, shapes[token.tid % 5].faces).map((num, index) => (
+                                                    <Grid item xs="3" key={index}>
+                                                        {index < 10 ? <span>&nbsp;{index}</span> : index}
+                                                        <ColorBox key={index} color={numberToColor(num)} />
+                                                    </Grid>
+                                                ))
+                                            }
+                                        </Grid>
+                                    </p>
                                 </Grid>
                             </Grid>
-                        }
+                        </Grid>
+
                     </Box>
                 </div>
             </Container>
