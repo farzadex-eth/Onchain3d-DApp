@@ -471,7 +471,7 @@ export function ContractProvider({ children }) {
   ]
 
   const getTokenPreview = async (tid, settings) => {
-    console.log(colorListToBytes(settings.color_list.slice(0, shapes[tid%5].faces)))
+    console.log(settings)
     try {
       const prev = await contract.methods.previewTokenById(
         tid,

@@ -3,6 +3,7 @@ import ContractContext from '../ContractContext';
 import { Box, Container, TextField, Typography, Button, Grid, LinearProgress } from '@mui/material';
 import TokenSVG from './TokenSVG';
 import ColorBox from './ColorBox';
+import TokenContext from '../TokenContext';
 
 const defaultColors = [
     16761600,
@@ -35,12 +36,14 @@ const shapes = [
     { name: "Icosahedron", faces: 20 },
 ]
 
-function TokenView({ token, setToken, setMode }) {
+function TokenView({ setMode }) {
 
+    const { preview, token, setToken, setPreview } = useContext(TokenContext);
     const { renderTokenById, getSetting } = useContext(ContractContext);
+
     const [tid, setTid] = useState(token.tid);
     const [loading, setLoading] = useState(false);
-    // const [token, setToken] = useState({ tid: 0, svg: "", settings: [] });
+
 
     const handleInput = (e) => {
         const val = parseInt(e.target.value);
@@ -58,7 +61,8 @@ function TokenView({ token, setToken, setMode }) {
             const svg = await renderTokenById(tid);
             const settings = await getSetting(tid);
             setToken((prev) => ({ ...prev, svg: svg, tid: tid, settings: settings[1] }));
-            console.log(settings)
+            setPreview((prev) => ({ ...prev, svg: svg, tid: tid, settings: settings[1] }));
+            console.log(preview);
         } catch (e) {
             console.error(e);
         } finally {

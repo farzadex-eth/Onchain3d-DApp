@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import ContractContext from '../ContractContext';
-import { Box, Container, Typography, Button, Grid, LinearProgress } from '@mui/material';
+import { Box, Container, Typography, Button, Grid, LinearProgress, Tabs, Tab } from '@mui/material';
 import TokenSVG from './TokenSVG';
-import ColorBox from './ColorBox';
-import ObserverInput from './ObserverInput';
+import TokenContext from '../TokenContext';
+import EditPanel from './EditPanel';
 
 const defaultColors = [
     16761600,
@@ -36,27 +36,21 @@ const shapes = [
     { name: "Icosahedron", faces: 20 },
 ]
 
-function TokenEdit({ token, setToken, setMode }) {
+function TokenEdit({ setMode }) {
 
-    const { getTokenPreview, getSetting } = useContext(ContractContext);
+    const { token, preview, setPreview, settingProperties } = useContext(TokenContext);
+    const { getTokenPreview } = useContext(ContractContext);
+
     const [loading, setLoading] = useState(false);
-    const [preview, setPreview] = useState({ ...token });
+    const [tab, setTab] = useState(0);
 
-    const updateSetting = (attr, data) => {
-        let temp = {...preview.settings, [attr]: data}
-        setPreview((prev) => ({ ...prev,  settings: temp}));
-    }
+    // console.log(preview)
 
     const fetchTokenPrev = async () => {
-        // e.preventDefault();
-        // console.log('h')
         setLoading(true);
         try {
             const svg = await getTokenPreview(preview.tid, preview.settings);
-            // const svg = await renderTokenById(tid);
-            // const settings = await getSetting(tid);
             setPreview((prev) => ({ ...prev, svg: svg }));
-            // console.log(svg);
         } catch (e) {
             console.error(e);
         } finally {
@@ -64,21 +58,17 @@ function TokenEdit({ token, setToken, setMode }) {
         }
     }
 
-    const numberToColor = (num) => {
-        num >>>= 0;
-        var b = num & 0xFF,
-            g = (num & 0xFF00) >>> 8,
-            r = (num & 0xFF0000) >>> 16,
-            a = ((num & 0xFF000000) >>> 24) / 255;
-        return "rgb(" + [r, g, b].join(",") + ")";
-    }
-
     const goToViewMode = () => {
+        setPreview((prev) => ({...prev, settings: token.settings}));
         setMode(0);
     }
 
     const resetAll = () => {
-        setPreview((prev) => ({...prev, settings: token.settings}));
+        setPreview((prev) => ({ ...prev, settings: token.settings }));
+    }
+
+    const handleTabChange = (e, newValue) => {
+        setTab(newValue);
     }
 
     useEffect(() => {
@@ -99,7 +89,6 @@ function TokenEdit({ token, setToken, setMode }) {
                         Edit Token #{token.tid}
                         <hr />
                     </Typography>
-
                     <Box className="">
                         <Grid
                             container
@@ -132,70 +121,27 @@ function TokenEdit({ token, setToken, setMode }) {
                                 </Grid>
                             }
                             <Grid item xs="12" sm="6">
-                                <Grid
-                                    container
-                                    direction="column"
-                                    justify="flex-end"
-                                    alignItems="flex-start"
-                                    alignContent="stretch"
-                                    wrap="wrap"
-                                    sx={{
-                                        width: "90%"
-                                    }}
-                                >
-                                    <h5>
-                                        Token Settings
-                                        <Button variant='outlined' color="warning" onClick={resetAll}>Reset ALL</Button>
-                                        <hr />
-                                    </h5>
-                                    <p className="settingrow rowanim">Observer Position: X: {token.settings.observer[0] / (2 ** 64)}, Y: {token.settings.observer[1] / (2 ** 64)}, Z: {token.settings.observer[2] / (2 ** 64)}</p>
-                                    <div className="settingrow rowanim">Opacity: <ObserverInput name="opacity" update={updateSetting} defaultValue={token.settings.opacity} unit="%" preview={preview} /></div>
-                                    <p className="settingrow rowanim">Rotating Mode: {token.settings.rotating_mode ? "ON" : "OFF"}</p>
-                                    <p className="settingrow rowanim">Angular Speed: {token.settings.angular_speed_deg} (deg / 15 minutes)</p>
-                                    <p className="settingrow rowanim">View Mode: {!token.settings.dist_v_normalize ? "Normalized" : "From Distance"}, {!token.settings.face_or_wire ? "Wireframe" : "Faces"}</p>
-                                    <p className="settingrow">
-                                        <span className="rowanim">Wireframe Color: {numberToColor(token.settings.wire_color)}</span>
-                                        <ColorBox color={numberToColor(token.settings.wire_color)} />
-                                    </p>
-                                    <p className="settingrow">
-                                        <span className="rowanim">Background Color: {numberToColor(token.settings.back_color)}</span>
-                                        <ColorBox color={numberToColor(token.settings.back_color)} />
-                                    </p>
-                                    <p className="settingrow">
-                                        <Grid
-                                            container
-                                            spacing={1}
-                                            direction="row"
-                                            justify="flex-start"
-                                            alignItems="flex-start"
-                                            alignContent="stretch"
-                                            wrap="wrap"
-                                        >
-                                            <Grid item xs="12" className="rowanim">Face Colors: </Grid>
-                                            {
-                                                token.settings.color_list.length === 0 &&
-                                                defaultColors.slice(0, shapes[token.tid % 5].faces).map((num, index) => (
-                                                    <Grid item xs="3">
-                                                        {index < 10 ? <span>&nbsp;{index}</span> : index}
-                                                        <ColorBox key={index} color={numberToColor(num)} />
-                                                    </Grid>
-                                                ))
-                                            }
-                                            {
-                                                token.settings.color_list.length > 0 &&
-                                                token.settings.color_list.slice(0, shapes[token.tid % 5].faces).map((num, index) => (
-                                                    <Grid item xs="3" key={index}>
-                                                        {index < 10 ? <span>&nbsp;{index}</span> : index}
-                                                        <ColorBox key={index} color={numberToColor(num)} />
-                                                    </Grid>
-                                                ))
-                                            }
-                                        </Grid>
-                                    </p>
-                                </Grid>
+                                <Box sx={{ bgcolor: 'background.paper' }}>
+                                    <Tabs
+                                        value={tab}
+                                        onChange={handleTabChange}
+                                        variant="scrollable"
+                                        scrollButtons="auto"
+                                    >
+                                        {
+                                            settingProperties.map((s, index) => (
+                                                <Tab label={s.title} key={s.key} />
+                                            ))
+                                        }
+                                    </Tabs>
+                                        {
+                                            settingProperties.map((s, index) => (
+                                                <EditPanel sp={s} value={tab} index={index} key={s.key+'-editpanel'}/>
+                                            ))
+                                        }
+                                </Box>
                             </Grid>
                         </Grid>
-
                     </Box>
                 </div>
             </Container>
