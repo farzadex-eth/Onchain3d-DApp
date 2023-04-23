@@ -4,6 +4,7 @@ import { Box, Container, Typography, Button, Grid, LinearProgress, Tabs, Tab } f
 import TokenSVG from './TokenSVG';
 import TokenContext from '../TokenContext';
 import EditPanel from './EditPanel';
+import WalletContext from '../WalletContext';
 
 const defaultColors = [
     16761600,
@@ -39,7 +40,8 @@ const shapes = [
 function TokenEdit({ setMode }) {
 
     const { token, preview, setPreview, settingProperties } = useContext(TokenContext);
-    const { getTokenPreview } = useContext(ContractContext);
+    const { account } = useContext(WalletContext);
+    const { getTokenPreview, setTokenSettings } = useContext(ContractContext);
 
     const [loading, setLoading] = useState(false);
     const [tab, setTab] = useState(0);
@@ -58,8 +60,16 @@ function TokenEdit({ setMode }) {
         }
     }
 
+    const submitTokenSettings = async () => {
+        try {
+            const r = await setTokenSettings(preview.tid, preview.settings);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
     const goToViewMode = () => {
-        setPreview((prev) => ({...prev, settings: token.settings}));
+        setPreview((prev) => ({ ...prev, settings: token.settings }));
         setMode(0);
     }
 
@@ -89,7 +99,7 @@ function TokenEdit({ setMode }) {
                         Edit Token #{token.tid}
                         <hr />
                     </Typography>
-                    <Box className="">
+                    <Box >
                         <Grid
                             container
                             spacing={1}
@@ -134,12 +144,23 @@ function TokenEdit({ setMode }) {
                                             ))
                                         }
                                     </Tabs>
-                                        {
-                                            settingProperties.map((s, index) => (
-                                                <EditPanel sp={s} value={tab} index={index} key={s.key+'-editpanel'}/>
-                                            ))
-                                        }
+                                    {
+                                        settingProperties.map((s, index) => (
+                                            <EditPanel sp={s} value={tab} index={index} key={s.key + '-editpanel'} />
+                                        ))
+                                    }
                                 </Box>
+                            </Grid>
+                            <Grid item xs="12" sm={6}></Grid>
+                            <Grid item xs="12" sm={6}>
+                                {
+                                    account &&
+                                    <Button variant="contained" color="success" size="large" fullWidth onClick={submitTokenSettings}>Submit All</Button>
+                                }
+                                {
+                                    !account &&
+                                    <p>Connect Your Wallet</p>
+                                }
                             </Grid>
                         </Grid>
                     </Box>

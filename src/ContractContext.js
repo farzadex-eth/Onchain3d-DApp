@@ -485,6 +485,37 @@ export function ContractProvider({ children }) {
     }
   }
 
+  const setTokenSettings = async (tid, settings) => {
+    console.log(settings)
+    // try {
+      contract.methods.setMinimalSetting(
+        tid,
+        settings.observer.map(p => BigInt(p)),
+        compressSettings(settings),
+        colorListToBytes(settings.color_list.slice(0, shapes[tid%5].faces))
+      ).send(
+        {
+          from: account,
+          gas: 6000000,
+          gasPrice: 20000000000,
+        }
+      )
+      .on('transactionHash', (hash) => {
+        console.log(hash);
+      })
+      .on('receipt', (rec) => {
+        console.log(rec);
+      })
+      .on('error', (error, receipt) => {
+        console.log(error);
+      })
+
+    //   return prev;
+    // } catch (e) {
+    //   throw new Error(e);
+    // }
+  }
+
   return (
     <ContractContext.Provider value={{
       contractAdr: contractAdr,
@@ -493,6 +524,7 @@ export function ContractProvider({ children }) {
       renderTokenById: renderTokenById,
       getSetting: getSetting,
       getTokenPreview: getTokenPreview,
+      setTokenSettings: setTokenSettings,
     }}>
       {children}
     </ContractContext.Provider>
