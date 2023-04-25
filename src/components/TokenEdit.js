@@ -109,7 +109,7 @@ function TokenEdit({ setMode }) {
                                     >
                                         {
                                             settingProperties.map((s, index) => (
-                                                <Tab label={s.title} key={s.key} />
+                                                <Tab label={s.title} key={s.key} sx={{fontFamily: 'monospace', fontWeight: 'bold'}}/>
                                             ))
                                         }
                                     </Tabs>
