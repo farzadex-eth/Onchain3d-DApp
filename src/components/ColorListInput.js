@@ -22,7 +22,7 @@ function ColorListInput({ s, update }) {
     const handleInput = (e, index) => {
         const val = hexToNumColor(e.target.value);
         let arr = [...data];
-        arr[index] = val;
+        arr[index] = String(val);
         setData(arr);
     }
 
