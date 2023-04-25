@@ -8,7 +8,7 @@ function ToggleInput({ s, update }) {
     const defaultValue = token.settings[s.key];
     const prevValue = preview.settings[s.key];
 
-    const [data, setData] = useState(defaultValue != prevValue ? prevValue : defaultValue);
+    const [data, setData] = useState(defaultValue !== prevValue ? prevValue : defaultValue);
 
     const handleInputChange = (e) => {
         setData((prev) => (!prev));

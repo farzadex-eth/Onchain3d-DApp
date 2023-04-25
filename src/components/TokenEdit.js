@@ -31,7 +31,7 @@ function TokenEdit({ setMode }) {
 
     const submitTokenSettings = async () => {
         try {
-            const r = await setTokenSettings(preview.tid, preview.settings);
+            await setTokenSettings(preview.tid, preview.settings);
         } catch (e) {
             console.error(e);
         }

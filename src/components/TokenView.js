@@ -7,7 +7,7 @@ import TokenContext from '../TokenContext';
 
 function TokenView({ setMode }) {
 
-    const { preview, token, setToken, setPreview, shapes, defaultColors } = useContext(TokenContext);
+    const { preview, token, setToken, setPreview, shapes } = useContext(TokenContext);
     const { renderTokenById, getSetting } = useContext(ContractContext);
 
     const [tid, setTid] = useState(token.tid);
@@ -43,8 +43,7 @@ function TokenView({ setMode }) {
         num >>>= 0;
         var b = num & 0xFF,
             g = (num & 0xFF00) >>> 8,
-            r = (num & 0xFF0000) >>> 16,
-            a = ((num & 0xFF000000) >>> 24) / 255;
+            r = (num & 0xFF0000) >>> 16;
         return "rgb(" + [r, g, b].join(",") + ")";
     }
 
@@ -157,16 +156,7 @@ function TokenView({ setMode }) {
                                             >
                                                 <Grid item xs="12" className="rowanim">Face Colors: </Grid>
                                                 {
-                                                    token.settings.color_list.length === 0 &&
-                                                    defaultColors.slice(0, shapes[token.tid % 5].faces).map((num, index) => (
-                                                        <Grid item xs="3">
-                                                            {index < 10 ? <span>&nbsp;{index}</span> : index}
-                                                            <ColorBox key={index} color={numberToColor(num)} />
-                                                        </Grid>
-                                                    ))
-                                                }
-                                                {
-                                                    token.settings.color_list.length > 0 &&
+                                                    // token.settings.color_list.length > 0 &&
                                                     token.settings.color_list.slice(0, shapes[token.tid % 5].faces).map((num, index) => (
                                                         <Grid item xs="3" key={index}>
                                                             {index < 10 ? <span>&nbsp;{index}</span> : index}
