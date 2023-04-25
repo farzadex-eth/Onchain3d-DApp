@@ -79,7 +79,7 @@
 .settingrow {
   width: 100%;
   text-align: left;
-  margin: 1rem 0;
+  margin: 1rem auto;
   padding: 0.5rem 1rem;
   font-weight: bold;
   font-size: 16px;
@@ -120,4 +120,10 @@
   height: 20px;
   border: 1px solid grey;
   margin: 0 1rem;
+}
+
+@media (min-width:320px)  { 
+  .settingrow {
+    font-size: 12px;
+  }
 }

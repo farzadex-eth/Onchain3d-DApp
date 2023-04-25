@@ -123,7 +123,8 @@ function TokenView({ setMode }) {
                                         alignContent="stretch"
                                         wrap="wrap"
                                         sx={{
-                                            width: "90%"
+                                            width: "90%",
+                                            mx: 'auto'
                                         }}
                                     >
                                         <h5>
