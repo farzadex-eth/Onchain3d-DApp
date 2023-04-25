@@ -477,7 +477,7 @@ export function ContractProvider({ children }) {
         tid,
         settings.observer.map(p => BigInt(p)),
         compressSettings(settings),
-        colorListToBytes(settings.color_list.slice(0, shapes[tid%5].faces))
+        colorListToBytes(settings.color_list.slice(0, shapes[tid % 5].faces))
       ).call();
       return prev;
     } catch (e) {
@@ -486,20 +486,22 @@ export function ContractProvider({ children }) {
   }
 
   const setTokenSettings = async (tid, settings) => {
-    console.log(settings)
-    // try {
-      contract.methods.setMinimalSetting(
-        tid,
-        settings.observer.map(p => BigInt(p)),
-        compressSettings(settings),
-        colorListToBytes(settings.color_list.slice(0, shapes[tid%5].faces))
-      ).send(
-        {
-          from: account,
-          gas: 6000000,
-          gasPrice: 20000000000,
-        }
-      )
+
+    const w = new Web3(window.ethereum);
+    const c = new w.eth.Contract(contractABI, contractAdr);
+
+    c.methods.setMinimalSetting(
+      tid,
+      settings.observer.map(p => BigInt(p)),
+      compressSettings(settings),
+      colorListToBytes(settings.color_list.slice(0, shapes[tid % 5].faces))
+    ).send(
+      {
+        from: account,
+        gas: 6000000,
+        gasPrice: 20000000000,
+      }
+    )
       .on('transactionHash', (hash) => {
         console.log(hash);
       })
@@ -510,10 +512,6 @@ export function ContractProvider({ children }) {
         console.log(error);
       })
 
-    //   return prev;
-    // } catch (e) {
-    //   throw new Error(e);
-    // }
   }
 
   return (

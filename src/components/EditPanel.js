@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import NumberInput from './NumberInput'
 import { Box } from '@mui/material'
 import TokenContext from '../TokenContext'
+import ToggleInput from './ToggleInput';
 
 function EditPanel({ sp, index, value }) {
 
@@ -34,6 +35,10 @@ function EditPanel({ sp, index, value }) {
                 {
                     sp.type === "number" &&
                     <NumberInput s={sp} update={updatePreviewSetting} key={sp.key + '-input'} />
+                }
+                {
+                    sp.type === "toggle" &&
+                    <ToggleInput s={sp} update={updatePreviewSetting} key={sp.key + '-input'} />
                 }
 
             </Box>
