@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import TokenContext from '../TokenContext';
-import { Button } from '@mui/material';
+import { Alert, Button } from '@mui/material';
 
 function NumberInput({ s, update }) {
 
@@ -34,6 +34,11 @@ function NumberInput({ s, update }) {
         setData(arr);
     }
 
+    const pDistance = () => {
+        const dist = Math.sqrt((data.map((i) => (i/s.multiplier)**2)).reduce((a, b) => (a+b)));
+        return dist;
+    }
+
 
     return (
         <>
@@ -65,7 +70,13 @@ function NumberInput({ s, update }) {
                     }
                     <div>
                         {
-                            data !== defaultValue &&
+                            pDistance() < 4 &&
+                            <Alert severity='warning'>Observer too close - Change the coordinates - Your transaction will revert</Alert>
+                        }
+                    </div>
+                    <div>
+                        {
+                            data !== defaultValue && pDistance() > 4 &&
                             <Button variant='contained' size='small' sx={{ mt: '1rem' }} onClick={() => update(data)}> Preview Change</Button>
                         }
                     </div>
