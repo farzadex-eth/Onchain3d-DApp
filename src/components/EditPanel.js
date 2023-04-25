@@ -4,6 +4,7 @@ import { Box } from '@mui/material'
 import TokenContext from '../TokenContext'
 import ToggleInput from './ToggleInput';
 import ColorInput from './ColorInput';
+import ColorListInput from './ColorListInput';
 
 function EditPanel({ sp, index, value }) {
 
@@ -44,6 +45,10 @@ function EditPanel({ sp, index, value }) {
                 {
                     sp.type === "color" &&
                     <ColorInput s={sp} update={updatePreviewSetting} key={sp.key + '-input'} />
+                }
+                {
+                    sp.type === "colorlist" &&
+                    <ColorListInput s={sp} update={updatePreviewSetting} key={sp.key + '-input'} />
                 }
 
             </Box>
