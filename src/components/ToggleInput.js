@@ -22,10 +22,9 @@ function ToggleInput({ s, update }) {
                 <span>{s.toggleNames[0]}</span>
             </div>
             <div>
-                {
-                    data !== defaultValue &&
-                    <Button variant='contained' size='small' sx={{ mt: '1rem' }} onClick={() => update(data)}> Preview Change</Button>
-                }
+
+                <Button variant='contained' size='small' sx={{ mt: '1rem' }} onClick={() => update(data)}> Preview Change</Button>
+
             </div>
         </>
     )

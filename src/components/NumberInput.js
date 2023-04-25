@@ -9,7 +9,7 @@ function NumberInput({ s, update }) {
     const defaultValue = token.settings[s.key];
     const prevValue = preview.settings[s.key];
 
-    const [data, setData] = useState(defaultValue != prevValue ? prevValue : defaultValue);
+    const [data, setData] = useState(defaultValue !== prevValue ? prevValue : defaultValue);
 
     const handleInput = (e) => {
         e.preventDefault();
@@ -76,7 +76,7 @@ function NumberInput({ s, update }) {
                     </div>
                     <div>
                         {
-                            data !== defaultValue && pDistance() > 4 &&
+                            pDistance() > 4 &&
                             <Button variant='contained' size='small' sx={{ mt: '1rem' }} onClick={() => update(data)}> Preview Change</Button>
                         }
                     </div>
