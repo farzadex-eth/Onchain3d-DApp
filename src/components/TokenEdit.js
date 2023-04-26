@@ -43,16 +43,12 @@ function TokenEdit({ setMode }) {
         setMode(0);
     }
 
-    const resetAll = () => {
-        setPreview((prev) => ({ ...prev, settings: token.settings }));
-    }
-
     const handleTabChange = (e, newValue) => {
         setTab(newValue);
     }
 
     const rerenderPreview = () => {
-        setRender((prev) => (prev+1));
+        setRender((prev) => (prev + 1));
     }
 
     useEffect(() => {
@@ -124,21 +120,21 @@ function TokenEdit({ setMode }) {
                                         ))
                                     }
 
-                                    <Button variant='contained' size='small' sx={{ my: '1rem' }} onClick={rerenderPreview} > Preview All Changes</Button>
+                                    <Button variant='contained' size='small' sx={{ my: '1rem' }} onClick={rerenderPreview} >Preview All Changes</Button>
 
                                 </Box>
+                                <Grid item xs="12" sx={{my: '1rem'}}>
+                                    {
+                                        account &&
+                                        <Button variant="contained" color="success" size="large" fullWidth onClick={submitTokenSettings}>Submit All</Button>
+                                    }
+                                    {
+                                        !account &&
+                                        <p>Connect your wallet to submit changes</p>
+                                    }
+                                </Grid>
                             </Grid>
-                            <Grid item xs="12" sm={6}></Grid>
-                            <Grid item xs="12" sm={6}>
-                                {
-                                    account &&
-                                    <Button variant="contained" color="success" size="large" fullWidth onClick={submitTokenSettings}>Submit All</Button>
-                                }
-                                {
-                                    !account &&
-                                    <p>Connect Your Wallet</p>
-                                }
-                            </Grid>
+                            {/* <Grid item xs="12" sm={6}></Grid> */}
                         </Grid>
                     </Box>
                 </div>

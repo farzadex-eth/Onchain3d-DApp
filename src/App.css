@@ -122,6 +122,21 @@
   margin: 0 1rem;
 }
 
+.tx-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  background-color: blanchedalmond;
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10.4px);
+  padding: 4px;
+  overflow-wrap: break-word;
+  font-family: monospace !important;
+}
+
 @media screen and (max-width:400px)  { 
   .settingrow {
     font-size: 12px;

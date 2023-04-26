@@ -1,6 +1,7 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState } from "react";
 import Web3 from "web3";
 import WalletContext from "./WalletContext";
+import { Alert, AlertTitle, Box, Button, Link, Modal, Typography } from "@mui/material";
 
 const ContractContext = createContext();
 
@@ -485,7 +486,29 @@ export function ContractProvider({ children }) {
     }
   }
 
+  const [changed, setChanged] = useState(false);
+  const [error, setError] = useState('');
+  const [open, setOpen] = useState(false);
+  const [txhash, setTxhash] = useState('');
+
+  const createTxHashLink = () => {
+    const base = "https://etherscan.io/tx/"
+    return base + txhash;
+  }
+
+  const closeModal = () => {
+    setOpen(false);
+  }
+
+  const handleModalClose = (event, reason) => {
+  }
+
   const setTokenSettings = async (tid, settings) => {
+
+    setOpen(true);
+    setChanged(false);
+    setError(false);
+    setTxhash('');
 
     const w = new Web3(window.ethereum);
     const c = new w.eth.Contract(contractABI, contractAdr);
@@ -502,15 +525,20 @@ export function ContractProvider({ children }) {
     )
       .on('transactionHash', (hash) => {
         console.log(hash);
+        setTxhash(hash);
       })
       .on('receipt', (rec) => {
         console.log(rec);
+        setChanged(true);
       })
       .on('error', (error, receipt) => {
         console.log(error);
+        setError(error.message);
       })
 
   }
+
+
 
   return (
     <ContractContext.Provider value={{
@@ -522,6 +550,52 @@ export function ContractProvider({ children }) {
       getTokenPreview: getTokenPreview,
       setTokenSettings: setTokenSettings,
     }}>
+      <Modal
+        open={open}
+        disableEscapeKeyDown
+        onClose={handleModalClose}
+      >
+        <Box className="tx-modal">
+          <Typography variant='title' display='block' sx={{ textAlign: 'center', color: 'black' }}>Submit changes to token</Typography>
+          {
+            txhash &&
+            <>
+              <Alert sx={{ my: '1rem', fontFamily: 'inherit' }} severity="info">
+                <AlertTitle sx={{fontFamily: 'inherit'}}>Tx Hash</AlertTitle>
+                <p>{txhash}</p>
+                <Link href={createTxHashLink()} underline="none" target="_blank">
+                  View On Etherscan
+                </Link>
+              </Alert>
+            </>
+          }
+          {
+            error &&
+            <>
+              <Alert severity='error' sx={{ my: '1rem', fontFamily: 'inherit' }}>
+                <AlertTitle sx={{fontFamily: 'inherit'}}>Error</AlertTitle>
+                {error}
+              </Alert>
+            </>
+          }
+          {
+            changed &&
+            <>
+              <Alert severity='success' sx={{ my: '1rem', fontFamily: 'inherit' }}>
+                <AlertTitle sx={{fontFamily: 'inherit'}}>Changes Submitted Successfully</AlertTitle>
+                {/* <Link href={'https://opensea.io/assets/ethereum/0xc3120f76424c21a4019a10fbc90af0481b267123/' + ostid} underline="none" target="_blank">
+                  View On OpenSea
+                </Link> */}
+              </Alert>
+            </>
+          }
+          {
+            (error || changed) &&
+            <Button variant='contained' color='warning' onClick={closeModal} fullWidth>Close</Button>
+          }
+
+        </Box>
+      </Modal>
       {children}
     </ContractContext.Provider>
   );
