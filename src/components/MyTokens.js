@@ -10,7 +10,7 @@ function MyTokens() {
     const { getTokensOfAddress } = useContext(ContractContext);
 
     const [loading, setLoading] = useState(false);
-    const [toks, setToks] = useState({});
+    const [toks, setToks] = useState();
 
     const fetchTokens = async () => {
         setLoading(true);
@@ -71,7 +71,7 @@ function MyTokens() {
                                     />
                                 }
                                 {
-                                    !loading && toks &&
+                                    !loading && Array.isArray(toks) &&
                                     <Grid
                                       container
                                       spacing={1}
