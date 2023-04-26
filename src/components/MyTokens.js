@@ -71,7 +71,7 @@ function MyTokens() {
                                     />
                                 }
                                 {
-                                    !loading &&
+                                    !loading && toks &&
                                     <Grid
                                       container
                                       spacing={1}
