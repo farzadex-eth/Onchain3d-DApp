@@ -1,9 +1,9 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import TokenContext from '../TokenContext';
 import Web3 from 'web3';
 import { Button } from '@mui/material';
 
-function ColorInput({ s, update }) {
+function ColorInput({ s, update, resetAll }) {
 
     const { token, preview } = useContext(TokenContext);
 
@@ -25,6 +25,12 @@ function ColorInput({ s, update }) {
         setData(val);
         update(val);
     }
+
+    useEffect(() => {
+        if(resetAll) {
+            setData(defaultValue);
+        }
+    }, [resetAll])
 
     return (
         <>

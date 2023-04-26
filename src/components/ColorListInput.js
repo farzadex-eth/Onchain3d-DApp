@@ -1,9 +1,9 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import TokenContext from '../TokenContext';
 import Web3 from 'web3';
 import { Button, Grid } from '@mui/material';
 
-function ColorListInput({ s, update }) {
+function ColorListInput({ s, update, resetAll }) {
     const { token, preview, shapes } = useContext(TokenContext);
 
     const defaultValue = token.settings[s.key];
@@ -26,6 +26,12 @@ function ColorListInput({ s, update }) {
         setData(arr);
         update(arr);
     }
+
+    useEffect(() => {
+        if(resetAll) {
+            setData(defaultValue);
+        }
+    }, [resetAll])
 
     return (
         <>

@@ -1,8 +1,8 @@
 import { Button, Switch } from '@mui/material';
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import TokenContext from '../TokenContext';
 
-function ToggleInput({ s, update }) {
+function ToggleInput({ s, update, resetAll }) {
 
     const { token, preview } = useContext(TokenContext);
     const defaultValue = token.settings[s.key];
@@ -14,6 +14,12 @@ function ToggleInput({ s, update }) {
         update(!data);
         setData((prev) => (!prev));
     }
+
+    useEffect(() => {
+        if(resetAll) {
+            setData(defaultValue);
+        }
+    }, [resetAll])
 
     return (
         <>

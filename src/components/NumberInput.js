@@ -1,8 +1,8 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import TokenContext from '../TokenContext';
 import { Alert, Button, Slider } from '@mui/material';
 
-function NumberInput({ s, update }) {
+function NumberInput({ s, update, resetAll }) {
 
     const { token, preview } = useContext(TokenContext);
 
@@ -78,6 +78,12 @@ function NumberInput({ s, update }) {
             label: "100",
         },
     ]
+
+    useEffect(() => {
+        if(resetAll) {
+            setData(defaultValue);
+        }
+    }, [resetAll])
 
 
     return (

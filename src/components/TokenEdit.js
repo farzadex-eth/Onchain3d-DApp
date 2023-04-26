@@ -15,6 +15,7 @@ function TokenEdit({ setMode }) {
     const [loading, setLoading] = useState(false);
     const [tab, setTab] = useState(0);
     const [render, setRender] = useState(0);
+    const [resetChanges, setResetChanges] = useState(false);
 
     // console.log(preview)
 
@@ -48,6 +49,13 @@ function TokenEdit({ setMode }) {
     }
 
     const rerenderPreview = () => {
+        setRender((prev) => (prev + 1));
+    }
+
+    const resetAll = () => {
+        setResetChanges(true);
+        setPreview((prev) => ({...prev, settings: token.settings}))
+        setTimeout(() => {setResetChanges(false)}, 500);
         setRender((prev) => (prev + 1));
     }
 
@@ -101,6 +109,8 @@ function TokenEdit({ setMode }) {
                                 </Grid>
                             }
                             <Grid item xs="12" sm="6">
+                                <Button variant='contained' size='small' sx={{ my: '1rem' }} onClick={rerenderPreview} >Preview All Changes</Button>
+                                <Button variant='contained' size='small' sx={{ my: '1rem' }} onClick={resetAll} color="error" >Reset All Changes</Button>
                                 <Box sx={{ bgcolor: 'background.paper' }}>
                                     <Tabs
                                         value={tab}
@@ -116,14 +126,13 @@ function TokenEdit({ setMode }) {
                                     </Tabs>
                                     {
                                         settingProperties.map((s, index) => (
-                                            <EditPanel sp={s} value={tab} index={index} key={s.key + '-editpanel'} />
+                                            <EditPanel sp={s} value={tab} index={index} resetAll={resetChanges} key={s.key + '-editpanel'} />
                                         ))
                                     }
 
-                                    <Button variant='contained' size='small' sx={{ my: '1rem' }} onClick={rerenderPreview} >Preview All Changes</Button>
 
                                 </Box>
-                                <Grid item xs="12" sx={{my: '1rem'}}>
+                                <Grid item xs="12" sx={{ my: '1rem' }}>
                                     {
                                         account &&
                                         <Button variant="contained" color="success" size="large" fullWidth onClick={submitTokenSettings}>Submit All</Button>

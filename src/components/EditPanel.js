@@ -6,7 +6,7 @@ import ToggleInput from './ToggleInput';
 import ColorInput from './ColorInput';
 import ColorListInput from './ColorListInput';
 
-function EditPanel({ sp, index, value }) {
+function EditPanel({ sp, index, value, resetAll }) {
 
     const { preview, setPreview } = useContext(TokenContext);
 
@@ -36,19 +36,19 @@ function EditPanel({ sp, index, value }) {
                 <p>{sp.title}</p>
                 {
                     sp.type === "number" &&
-                    <NumberInput s={sp} update={updatePreviewSetting} key={sp.key + '-input'} />
+                    <NumberInput s={sp} update={updatePreviewSetting} resetAll={resetAll} key={sp.key + '-input'} />
                 }
                 {
                     sp.type === "toggle" &&
-                    <ToggleInput s={sp} update={updatePreviewSetting} key={sp.key + '-input'} />
+                    <ToggleInput s={sp} update={updatePreviewSetting} resetAll={resetAll} key={sp.key + '-input'} />
                 }
                 {
                     sp.type === "color" &&
-                    <ColorInput s={sp} update={updatePreviewSetting} key={sp.key + '-input'} />
+                    <ColorInput s={sp} update={updatePreviewSetting} resetAll={resetAll} key={sp.key + '-input'} />
                 }
                 {
                     sp.type === "colorlist" &&
-                    <ColorListInput s={sp} update={updatePreviewSetting} key={sp.key + '-input'} />
+                    <ColorListInput s={sp} update={updatePreviewSetting} resetAll={resetAll} key={sp.key + '-input'} />
                 }
 
 
