@@ -3,6 +3,7 @@ import ContractContext from '../ContractContext'
 import TokenSVG from './TokenSVG';
 import TokenContext from '../TokenContext';
 import { Skeleton } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 function TokenThumbnail({ token }) {
 
@@ -31,7 +32,7 @@ function TokenThumbnail({ token }) {
     })
 
     return (
-        <>
+        <Link to={`/${token.tokenId}`}>
             {
                 loading &&
                 <div>
@@ -45,7 +46,7 @@ function TokenThumbnail({ token }) {
                 !loading && image &&
                 <TokenSVG data={image} tid={token.tokenId} shape={shapes[token.tokenId%5].name} thumbnail />
             }
-        </>
+        </Link>
     )
 }
 

@@ -24,6 +24,7 @@ function App() {
             <Navbar />
             <Routes>
               <Route exact path="/" element={<MainPage />} />
+              <Route exact path="/:tid" element={<MainPage />} />
               <Route exact path="/mytokens" element={<MyTokens />} />
               <Route exact path="/about" element={<About />} />
             </Routes>

@@ -1,11 +1,11 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import ContractContext from '../ContractContext';
 import { Box, Container, TextField, Typography, Button, Grid, LinearProgress } from '@mui/material';
 import TokenSVG from './TokenSVG';
 import ColorBox from './ColorBox';
 import TokenContext from '../TokenContext';
 
-function TokenView({ setMode }) {
+function TokenView({ setMode, search }) {
 
     const { preview, token, setToken, setPreview, shapes } = useContext(TokenContext);
     const { renderTokenById, getSetting } = useContext(ContractContext);
@@ -23,8 +23,7 @@ function TokenView({ setMode }) {
         setTid(Math.max(0, Math.min(val, 499)));
     }
 
-    const fetchToken = async (e) => {
-        e.preventDefault();
+    const fetchToken = async () => {
         setLoading(true);
         try {
             const svg = await renderTokenById(tid);
@@ -50,6 +49,13 @@ function TokenView({ setMode }) {
     const goToEditMode = () => {
         setMode(1);
     }
+
+    useEffect(() => {
+        if(search && !isNaN(search)) {
+            setTid(search);
+            fetchToken(search);
+        }
+    }, [search])
 
     return (
         <>

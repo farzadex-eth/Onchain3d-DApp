@@ -84,7 +84,7 @@ function MyTokens() {
                                     >
                                       {
                                         toks.map((item) => (
-                                            <Grid item xs={4} key={item.token.tokenId}>
+                                            <Grid item xs={4} key={item.token.tokenId} sx={{cursor: 'pointer'}}>
                                                 <TokenThumbnail token={item.token} />
                                             </Grid>
                                         ))

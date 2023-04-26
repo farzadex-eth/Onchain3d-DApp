@@ -1,9 +1,11 @@
 import React, { useContext, useState } from 'react'
 import TokenView from './TokenView';
 import TokenEdit from './TokenEdit';
-import { TokenProvider } from '../TokenContext';
+import { useParams } from 'react-router-dom';
 
 function MainPage() {
+
+    const {tid} = useParams();
 
     const [mode, setMode] = useState(0);
 
@@ -11,7 +13,7 @@ function MainPage() {
         <>
             {
                 mode === 0 &&
-                <TokenView setMode={setMode} />
+                <TokenView setMode={setMode} search={tid} />
             }
             {
                 mode === 1 &&
