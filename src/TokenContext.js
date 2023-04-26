@@ -11,8 +11,8 @@ const settingProperties = [
         multiplier: 2**64,
         num: 3,
         names: ["X", "Y", "Z"],
-        min: -99,
-        max: 99,
+        min: -100,
+        max: 100,
     },
     {
         title: "Opacity",
