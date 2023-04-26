@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import WalletContext from '../WalletContext'
+import { Link } from 'react-router-dom';
 
 function Navbar() {
 
@@ -19,10 +20,13 @@ function Navbar() {
                     <div className="collapse navbar-collapse" id="navbarNav">
                         <ul className="navbar-nav">
                             <li className="nav-item">
-                                <a className="nav-link active" aria-current="page" href="#">Home</a>
+                                <Link className="nav-link active" to="/">Home</Link>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">Mint</a>
+                                <Link className="nav-link" to="/mytokens">My Tokens</Link>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" target='_blank' href="#">Mint</a>
                             </li>
                         </ul>
                     </div>
@@ -33,7 +37,7 @@ function Navbar() {
                     {
                         account &&
                         <div className="text-light">
-                            <span className='mx-3'>{truncateAddress(account)}</span>
+                            <span className='mx-3 text-dark'>{truncateAddress(account)}</span>
                             <button type="button" className="btn btn-warning" onClick={disconnectAccount}>Disconnect</button>
                         </div>
                     }

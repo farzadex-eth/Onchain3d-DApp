@@ -2,6 +2,21 @@ import { createContext, useContext, useState } from "react";
 import Web3 from "web3";
 import WalletContext from "./WalletContext";
 import { Alert, AlertTitle, Box, Button, Link, Modal, Typography } from "@mui/material";
+import { ZDK, ZDKNetwork, ZDKChain } from "@zoralabs/zdk";
+
+
+const networkInfo = {
+  network: ZDKNetwork.Ethereum,
+  chain: ZDKChain.Mainnet,
+}
+
+const API_ENDPOINT = "https://api.zora.co/graphql";
+const args = {
+  endPoint: API_ENDPOINT,
+  networks: [networkInfo],
+}
+
+const zdk = new ZDK(args) // All arguments are optional
 
 const ContractContext = createContext();
 
@@ -538,6 +553,19 @@ export function ContractProvider({ children }) {
 
   }
 
+  const getTokensOfAddress = async (ownerAdr) => {
+    const where = {
+      collectionAddresses: "0xC3120F76424c21A4019A10Fbc90AF0481b267123",
+      ownerAddresses: "0xbD46A5b7b9db79DD85C964ca2FC55C3500b8C5E1"
+    }
+    const tokens = await zdk.tokens(
+      {
+        where: where,
+      }
+    )
+    return tokens;
+  }
+
 
 
   return (
@@ -549,6 +577,7 @@ export function ContractProvider({ children }) {
       getSetting: getSetting,
       getTokenPreview: getTokenPreview,
       setTokenSettings: setTokenSettings,
+      getTokensOfAddress: getTokensOfAddress,
     }}>
       <Modal
         open={open}
@@ -561,7 +590,7 @@ export function ContractProvider({ children }) {
             txhash &&
             <>
               <Alert sx={{ my: '1rem', fontFamily: 'inherit' }} severity="info">
-                <AlertTitle sx={{fontFamily: 'inherit'}}>Tx Hash</AlertTitle>
+                <AlertTitle sx={{ fontFamily: 'inherit' }}>Tx Hash</AlertTitle>
                 <p>{txhash}</p>
                 <Link href={createTxHashLink()} underline="none" target="_blank">
                   View On Etherscan
@@ -573,7 +602,7 @@ export function ContractProvider({ children }) {
             error &&
             <>
               <Alert severity='error' sx={{ my: '1rem', fontFamily: 'inherit' }}>
-                <AlertTitle sx={{fontFamily: 'inherit'}}>Error</AlertTitle>
+                <AlertTitle sx={{ fontFamily: 'inherit' }}>Error</AlertTitle>
                 {error}
               </Alert>
             </>
@@ -582,7 +611,7 @@ export function ContractProvider({ children }) {
             changed &&
             <>
               <Alert severity='success' sx={{ my: '1rem', fontFamily: 'inherit' }}>
-                <AlertTitle sx={{fontFamily: 'inherit'}}>Changes Submitted Successfully</AlertTitle>
+                <AlertTitle sx={{ fontFamily: 'inherit' }}>Changes Submitted Successfully</AlertTitle>
                 {/* <Link href={'https://opensea.io/assets/ethereum/0xc3120f76424c21a4019a10fbc90af0481b267123/' + ostid} underline="none" target="_blank">
                   View On OpenSea
                 </Link> */}
