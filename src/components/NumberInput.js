@@ -37,7 +37,7 @@ function NumberInput({ s, update }) {
     }
 
     const pDistance = () => {
-        const dist = Math.sqrt((data.map((i) => (i/s.multiplier)**2)).reduce((a, b) => (a+b)));
+        const dist = Math.sqrt((data.slice(0,2).map((i) => (i/s.multiplier)**2)).reduce((a, b) => (a+b)));
         return dist;
     }
 
@@ -73,7 +73,7 @@ function NumberInput({ s, update }) {
                     <div>
                         {
                             pDistance() < 4 &&
-                            <Alert severity='warning'>Observer too close - Change the coordinates - Your transaction will revert</Alert>
+                            <Alert severity='warning' sx={{fontFamily: 'monospace'}}>Observer too close - Change the coordinates - Your transaction will revert</Alert>
                         }
                     </div>
                     {/* <div>
