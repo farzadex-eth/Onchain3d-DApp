@@ -15,8 +15,13 @@ function ToggleInput({ s, update, resetAll }) {
         setData((prev) => (!prev));
     }
 
+    const resetInput = () => {
+        setData(defaultValue);
+        update(defaultValue);
+    }
+
     useEffect(() => {
-        if(resetAll) {
+        if (resetAll) {
             setData(defaultValue);
         }
     }, [resetAll])
@@ -28,11 +33,10 @@ function ToggleInput({ s, update, resetAll }) {
                 <Switch checked={data} onChange={handleInputChange} />
                 <span>{s.toggleNames[0]}</span>
             </div>
-            {/* <div>
+            <div>
+                <Button variant='outlined' size='small' sx={{ mt: '1rem' }} onClick={resetInput} color='warning'>Reset</Button>
+            </div>
 
-                <Button variant='contained' size='small' sx={{ mt: '1rem' }} onClick={() => update(data)}> Preview Change</Button>
-
-            </div> */}
         </>
     )
 }

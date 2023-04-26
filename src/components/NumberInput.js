@@ -41,14 +41,19 @@ function NumberInput({ s, update, resetAll }) {
         return dist;
     }
 
+    const resetInput = () => {
+        setData(defaultValue);
+        update(defaultValue);
+    }
+
     const marks1 = [
         {
             value: s.min,
             label: "" + s.min
         },
         {
-            value: (s.min+s.max)/2,
-            label: "" + (s.min+s.max)/2
+            value: (s.min + s.max) / 2,
+            label: "" + (s.min + s.max) / 2
         },
         {
             value: s.max,
@@ -80,7 +85,7 @@ function NumberInput({ s, update, resetAll }) {
     ]
 
     useEffect(() => {
-        if(resetAll) {
+        if (resetAll) {
             setData(defaultValue);
         }
     }, [resetAll])
@@ -132,14 +137,11 @@ function NumberInput({ s, update, resetAll }) {
                             <Alert severity='warning' sx={{ fontFamily: 'monospace' }}>Observer too close - Change the coordinates - Your transaction will revert</Alert>
                         }
                     </div>
-                    {/* <div>
-                        {
-                            pDistance() > 4 &&
-                            <Button variant='contained' size='small' sx={{ mt: '1rem' }} onClick={() => update(data)}> Preview Change</Button>
-                        }
-                    </div> */}
                 </>
             }
+            <div>
+                <Button variant='outlined' size='small' sx={{ mt: '1rem' }} onClick={resetInput} color='warning'>Reset</Button>
+            </div>
         </>
     )
 }

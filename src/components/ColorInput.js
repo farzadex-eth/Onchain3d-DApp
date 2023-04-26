@@ -13,7 +13,7 @@ function ColorInput({ s, update, resetAll }) {
     const [data, setData] = useState(defaultValue !== prevValue ? prevValue : defaultValue);
 
     const colorHex = (num) => {
-       return "#" + Web3.utils.padLeft((Web3.utils.toHex(num)).replace("0x", ""), 6);
+        return "#" + Web3.utils.padLeft((Web3.utils.toHex(num)).replace("0x", ""), 6);
     }
 
     const hexToNumColor = (hex) => {
@@ -26,8 +26,13 @@ function ColorInput({ s, update, resetAll }) {
         update(val);
     }
 
+    const resetInput = () => {
+        setData(defaultValue);
+        update(defaultValue);
+    }
+
     useEffect(() => {
-        if(resetAll) {
+        if (resetAll) {
             setData(defaultValue);
         }
     }, [resetAll])
@@ -35,11 +40,9 @@ function ColorInput({ s, update, resetAll }) {
     return (
         <>
             <input type="color" name={s.key + '-inp'} id={s.key + '-inp'} className='colorbox' value={colorHex(data)} onChange={handleInput} />
-            {/* <div>
-
-                <Button variant='contained' size='small' sx={{ mt: '1rem' }} onClick={() => update(data)}> Preview Change</Button>
-
-            </div> */}
+            <div>
+                <Button variant='outlined' size='small' sx={{ mt: '1rem' }} onClick={resetInput} color='warning'>Reset</Button>
+            </div>
         </>
     )
 }

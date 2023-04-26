@@ -27,8 +27,13 @@ function ColorListInput({ s, update, resetAll }) {
         update(arr);
     }
 
+    const resetInput = () => {
+        setData(defaultValue);
+        update(defaultValue);
+    }
+
     useEffect(() => {
-        if(resetAll) {
+        if (resetAll) {
             setData(defaultValue);
         }
     }, [resetAll])
@@ -43,22 +48,20 @@ function ColorListInput({ s, update, resetAll }) {
                 alignItems="flex-start"
                 alignContent="stretch"
                 wrap="wrap"
-                sx={{width: '90%', mx: 'auto'}}
+                sx={{ width: '90%', mx: 'auto' }}
             >
-            {
-                preview.settings.color_list.slice(0, shapes[preview.tid % 5].faces).map((item, index) => (
-                    <div key={'color_list_' + index} style={{ display: 'inline', marginTop: '0.5rem' }}>
-                        {index < 10 ? <span>&nbsp;{index}</span> : index}
-                        <input type="color" name={s.key + '-inp-' + index} id={s.key + '-inp-' + index} className='colorbox' value={colorHex(data[index])} onChange={(e) => handleInput(e, index)} />
-                    </div>
-                ))
-            }
+                {
+                    preview.settings.color_list.slice(0, shapes[preview.tid % 5].faces).map((item, index) => (
+                        <div key={'color_list_' + index} style={{ display: 'inline', marginTop: '0.5rem' }}>
+                            {index < 10 ? <span>&nbsp;{index}</span> : index}
+                            <input type="color" name={s.key + '-inp-' + index} id={s.key + '-inp-' + index} className='colorbox' value={colorHex(data[index])} onChange={(e) => handleInput(e, index)} />
+                        </div>
+                    ))
+                }
             </Grid>
-            {/* <div>
-
-                <Button variant='contained' size='small' sx={{ mt: '1rem' }} onClick={() => update(data)}> Preview Change</Button>
-
-            </div> */}
+            <div>
+                <Button variant='outlined' size='small' sx={{ mt: '1rem' }} onClick={resetInput} color='warning'>Reset</Button>
+            </div>
         </>
     )
 }
