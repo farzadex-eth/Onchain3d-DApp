@@ -23,7 +23,23 @@ function TokenView({ setMode, search }) {
         setTid(Math.max(0, Math.min(val, 499)));
     }
 
-    const fetchToken = async () => {
+    const fetchToken = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+        try {
+            const svg = await renderTokenById(tid);
+            const settings = await getSetting(tid);
+            setToken((prev) => ({ ...prev, svg: svg, tid: tid, settings: settings[1] }));
+            setPreview((prev) => ({ ...prev, svg: svg, tid: tid, settings: settings[1] }));
+            console.log(preview);
+        } catch (e) {
+            console.error(e);
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    const fetchTokenExt = async (tid) => {
         setLoading(true);
         try {
             const svg = await renderTokenById(tid);
@@ -51,8 +67,8 @@ function TokenView({ setMode, search }) {
     }
 
     const hasParam = async () => {
-        await setTid(search);
-        await fetchToken(search);
+        setTid(() => search);
+        await fetchTokenExt(search);
     }
 
     useEffect(() => {
