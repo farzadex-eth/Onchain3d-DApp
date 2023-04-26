@@ -50,10 +50,14 @@ function TokenView({ setMode, search }) {
         setMode(1);
     }
 
+    const hasParam = async () => {
+        await setTid(search);
+        await fetchToken(search);
+    }
+
     useEffect(() => {
         if(search && !isNaN(search)) {
-            setTid(search);
-            fetchToken(search);
+            hasParam();
         }
     }, [search])
 
