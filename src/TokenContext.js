@@ -38,7 +38,7 @@ const settingProperties = [
         unit: "deg / 15 minutes",
         num: 1,
         min: 0,
-        max: 100,
+        max: 359,
     },
     {
         title: "View Mode: Distance",
