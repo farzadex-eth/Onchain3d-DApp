@@ -19,6 +19,7 @@ function NumberInput({ s, update }) {
             return;
         }
         setData(Math.max(s.min, Math.min(s.max, val)) * s.multiplier);
+        update(Math.max(s.min, Math.min(s.max, val)) * s.multiplier);
     }
 
     const handleInputArray = (e, index) => {
@@ -32,6 +33,7 @@ function NumberInput({ s, update }) {
         }
         arr[index] = Math.max(s.min, Math.min(s.max, val)) * s.multiplier;
         setData(arr);
+        update(arr);
     }
 
     const pDistance = () => {
@@ -47,12 +49,12 @@ function NumberInput({ s, update }) {
                 <>
                     <input type="number" name={s.slug + '-inp'} id={s.slug + '-inp'} value={data} onChange={handleInput} />
                     <span style={{ margin: '0 1rem' }}>{s.unit}</span>
-                    <div>
+                    {/* <div>
                         {
                             data !== defaultValue &&
                             <Button variant='contained' size='small' sx={{ mt: '1rem' }} onClick={() => update(data)}> Preview Change</Button>
                         }
-                    </div>
+                    </div> */}
                 </>
             }
             {
@@ -74,12 +76,12 @@ function NumberInput({ s, update }) {
                             <Alert severity='warning'>Observer too close - Change the coordinates - Your transaction will revert</Alert>
                         }
                     </div>
-                    <div>
+                    {/* <div>
                         {
                             pDistance() > 4 &&
                             <Button variant='contained' size='small' sx={{ mt: '1rem' }} onClick={() => update(data)}> Preview Change</Button>
                         }
-                    </div>
+                    </div> */}
                 </>
             }
         </>

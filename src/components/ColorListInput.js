@@ -24,6 +24,7 @@ function ColorListInput({ s, update }) {
         let arr = [...data];
         arr[index] = String(val);
         setData(arr);
+        update(arr);
     }
 
     return (
@@ -47,11 +48,11 @@ function ColorListInput({ s, update }) {
                 ))
             }
             </Grid>
-            <div>
+            {/* <div>
 
                 <Button variant='contained' size='small' sx={{ mt: '1rem' }} onClick={() => update(data)}> Preview Change</Button>
 
-            </div>
+            </div> */}
         </>
     )
 }

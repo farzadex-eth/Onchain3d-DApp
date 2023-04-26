@@ -14,6 +14,7 @@ function TokenEdit({ setMode }) {
 
     const [loading, setLoading] = useState(false);
     const [tab, setTab] = useState(0);
+    const [render, setRender] = useState(0);
 
     // console.log(preview)
 
@@ -50,9 +51,13 @@ function TokenEdit({ setMode }) {
         setTab(newValue);
     }
 
+    const rerenderPreview = () => {
+        setRender((prev) => (prev+1));
+    }
+
     useEffect(() => {
         fetchTokenPrev();
-    }, [preview.settings])
+    }, [render])
 
     return (
         <>
@@ -109,7 +114,7 @@ function TokenEdit({ setMode }) {
                                     >
                                         {
                                             settingProperties.map((s, index) => (
-                                                <Tab label={s.title} key={s.key} sx={{fontFamily: 'monospace', fontWeight: 'bold'}}/>
+                                                <Tab label={s.title} key={s.key} sx={{ fontFamily: 'monospace', fontWeight: 'bold' }} />
                                             ))
                                         }
                                     </Tabs>
@@ -118,6 +123,9 @@ function TokenEdit({ setMode }) {
                                             <EditPanel sp={s} value={tab} index={index} key={s.key + '-editpanel'} />
                                         ))
                                     }
+
+                                    <Button variant='contained' size='small' sx={{ my: '1rem' }} onClick={rerenderPreview} > Preview All Changes</Button>
+
                                 </Box>
                             </Grid>
                             <Grid item xs="12" sm={6}></Grid>

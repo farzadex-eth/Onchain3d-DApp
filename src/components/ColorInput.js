@@ -23,16 +23,17 @@ function ColorInput({ s, update }) {
     const handleInput = (e) => {
         const val = hexToNumColor(e.target.value);
         setData(val);
+        update(val);
     }
 
     return (
         <>
             <input type="color" name={s.key + '-inp'} id={s.key + '-inp'} className='colorbox' value={colorHex(data)} onChange={handleInput} />
-            <div>
+            {/* <div>
 
                 <Button variant='contained' size='small' sx={{ mt: '1rem' }} onClick={() => update(data)}> Preview Change</Button>
 
-            </div>
+            </div> */}
         </>
     )
 }

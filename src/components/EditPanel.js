@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import NumberInput from './NumberInput'
-import { Box } from '@mui/material'
+import { Box, Button } from '@mui/material'
 import TokenContext from '../TokenContext'
 import ToggleInput from './ToggleInput';
 import ColorInput from './ColorInput';
@@ -50,6 +50,7 @@ function EditPanel({ sp, index, value }) {
                     sp.type === "colorlist" &&
                     <ColorListInput s={sp} update={updatePreviewSetting} key={sp.key + '-input'} />
                 }
+
 
             </Box>
         </>

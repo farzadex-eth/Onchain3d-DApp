@@ -11,6 +11,7 @@ function ToggleInput({ s, update }) {
     const [data, setData] = useState(defaultValue !== prevValue ? prevValue : defaultValue);
 
     const handleInputChange = (e) => {
+        update(!data);
         setData((prev) => (!prev));
     }
 
@@ -21,11 +22,11 @@ function ToggleInput({ s, update }) {
                 <Switch checked={data} onChange={handleInputChange} />
                 <span>{s.toggleNames[0]}</span>
             </div>
-            <div>
+            {/* <div>
 
                 <Button variant='contained' size='small' sx={{ mt: '1rem' }} onClick={() => update(data)}> Preview Change</Button>
 
-            </div>
+            </div> */}
         </>
     )
 }
