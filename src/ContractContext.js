@@ -9,7 +9,7 @@ export function ContractProvider({ children }) {
   const { account } = useContext(WalletContext);
 
   // Contract
-  const contractAdr = '0xD3ea4434d62Abc941397f1A09f72517cBE31E7F2';
+  const contractAdr = '0xA707b2B93eECDFeE77AB8e66C9eef055cC9AdB15';
   const contractABI = [
     {
       "inputs": [],
@@ -498,8 +498,6 @@ export function ContractProvider({ children }) {
     ).send(
       {
         from: account,
-        gas: 6000000,
-        gasPrice: 20000000000,
       }
     )
       .on('transactionHash', (hash) => {
