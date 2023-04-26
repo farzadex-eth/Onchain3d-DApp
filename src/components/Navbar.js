@@ -28,6 +28,9 @@ function Navbar() {
                             <li className="nav-item">
                                 <a className="nav-link" target='_blank' href="#">Mint</a>
                             </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/about">About</Link>
+                            </li>
                         </ul>
                     </div>
                     {

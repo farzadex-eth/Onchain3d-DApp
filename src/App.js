@@ -1,4 +1,5 @@
 import './App.css';
+import About from './components/About';
 import Background from './components/Background';
 import MainPage from './components/MainPage';
 import MyTokens from './components/MyTokens';
@@ -24,6 +25,7 @@ function App() {
             <Routes>
               <Route exact path="/" element={<MainPage />} />
               <Route exact path="/mytokens" element={<MyTokens />} />
+              <Route exact path="/about" element={<About />} />
             </Routes>
           </Router>
           </TokenProvider>

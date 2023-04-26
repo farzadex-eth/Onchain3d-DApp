@@ -16,7 +16,6 @@ function TokenThumbnail({ token }) {
         setLoading(true);
         try {
             const svg = await renderTokenById(token.tokenId);
-            console.log(svg);
             setImage(svg);
         } catch (e) {
             console.error(e);
