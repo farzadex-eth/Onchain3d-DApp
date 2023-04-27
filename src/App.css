@@ -101,6 +101,12 @@
     fadein 3.5s steps(3, end)
 }
 
+.loadinganim {
+  max-width: 50%;
+  animation:
+    opacityloop 1s infinite steps(10, end);
+}
+
 /* The typing effect */
 @keyframes typing {
   from { width: 0 }
@@ -110,6 +116,13 @@
 /* The fade in effect */
 @keyframes fadein {
   from { opacity: 0 }
+  to { opacity: 1 }
+
+}
+/* The opacity loop effect */
+@keyframes opacityloop {
+  from { opacity: 1 }
+  50% { opacity: 0.5 }
   to { opacity: 1 }
 }
 

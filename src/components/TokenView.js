@@ -114,6 +114,8 @@ function TokenView({ setMode, search }) {
                     <Box className="">
                         {
                             loading &&
+                            <div className="mt-2">
+                            <img src='loading.jpg' className='loadinganim'/>
                             <LinearProgress
                                 sx={{
                                     width: "80%",
@@ -121,6 +123,7 @@ function TokenView({ setMode, search }) {
                                     mx: "auto"
                                 }}
                             />
+                            </div>
                         }
                         {
                             !loading && token.svg &&

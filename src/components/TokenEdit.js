@@ -54,8 +54,8 @@ function TokenEdit({ setMode }) {
 
     const resetAll = () => {
         setResetChanges(true);
-        setPreview((prev) => ({...prev, settings: token.settings}))
-        setTimeout(() => {setResetChanges(false)}, 500);
+        setPreview((prev) => ({ ...prev, settings: token.settings }))
+        setTimeout(() => { setResetChanges(false) }, 500);
         setRender((prev) => (prev + 1));
     }
 
@@ -93,6 +93,7 @@ function TokenEdit({ setMode }) {
                             {
                                 loading &&
                                 <Grid item xs="12" sm="6">
+                                    <img src='loading2.jpg' className='loadinganim' />
                                     <LinearProgress
                                         sx={{
                                             width: "80%",
