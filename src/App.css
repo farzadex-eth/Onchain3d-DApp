@@ -102,7 +102,14 @@
 }
 
 .loadinganim {
-  max-width: 50%;
+  width: 50%;
+  animation:
+    opacityloop 1s infinite steps(10, end);
+}
+
+.loadinganimw {
+  width: 100%;
+  margin: 0.5rem auto;
   animation:
     opacityloop 1s infinite steps(10, end);
 }

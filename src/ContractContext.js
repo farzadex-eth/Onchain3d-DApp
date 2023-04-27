@@ -599,6 +599,12 @@ export function ContractProvider({ children }) {
             </>
           }
           {
+            !error && !changed && txhash &&
+            <div>
+              <img src='txloading.jpg' className='loadinganimw' />
+            </div>
+          }
+          {
             error &&
             <>
               <Alert severity='error' sx={{ my: '1rem', fontFamily: 'inherit' }}>
