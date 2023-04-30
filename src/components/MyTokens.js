@@ -49,7 +49,7 @@ function MyTokens() {
                         alignItems="flex-start"
                         alignContent="stretch"
                         wrap="wrap"
-                        sx={{ my: '2rem', overflow: 'scroll' }}
+                        sx={{ my: '2rem', overflowY: 'scroll' }}
                     >
                         {
                             !account &&

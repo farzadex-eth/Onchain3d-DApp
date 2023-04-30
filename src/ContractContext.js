@@ -7,7 +7,8 @@ import { ZDK, ZDKNetwork, ZDKChain } from "@zoralabs/zdk";
 
 const networkInfo = {
   network: ZDKNetwork.Ethereum,
-  chain: ZDKChain.Mainnet,
+  // chain: ZDKChain.Mainnet,
+  chain: ZDKChain.Goerli,
 }
 
 const API_ENDPOINT = "https://api.zora.co/graphql";
@@ -25,7 +26,8 @@ export function ContractProvider({ children }) {
   const { account } = useContext(WalletContext);
 
   // Contract
-  const contractAdr = '0xA707b2B93eECDFeE77AB8e66C9eef055cC9AdB15';
+  // const contractAdr = '0xA707b2B93eECDFeE77AB8e66C9eef055cC9AdB15';
+  const contractAdr = '0x8e9f494a0e94909f94697A42dd0b4899505FeCBF';
   const contractABI = [
     {
       "inputs": [],
@@ -425,7 +427,8 @@ export function ContractProvider({ children }) {
     }
   ];
 
-  const web3 = new Web3("https://testnode.outofcontext.tech");
+  // const web3 = new Web3("https://testnode.outofcontext.tech");
+  const web3 = new Web3("https://ethereum-goerli-rpc.allthatnode.com");
   const contract = new web3.eth.Contract(contractABI, contractAdr);
 
   const getTokenURI = async (tokenId) => {
@@ -555,8 +558,8 @@ export function ContractProvider({ children }) {
 
   const getTokensOfAddress = async (ownerAdr) => {
     const where = {
-      collectionAddresses: "0xC3120F76424c21A4019A10Fbc90AF0481b267123",
-      ownerAddresses: "0xbD46A5b7b9db79DD85C964ca2FC55C3500b8C5E1"
+      collectionAddresses: "0x4Af21DF2DC80F617cC1F496A77Bd2310685F1710",
+      ownerAddresses: ownerAdr,
     }
     const tokens = await zdk.tokens(
       {

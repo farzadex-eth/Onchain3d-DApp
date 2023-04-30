@@ -9,7 +9,7 @@ import WalletContext from '../WalletContext';
 function TokenEdit({ setMode }) {
 
     const { token, preview, setPreview, settingProperties, shapes } = useContext(TokenContext);
-    const { account } = useContext(WalletContext);
+    const { account, chainId, changeNetwork } = useContext(WalletContext);
     const { getTokenPreview, setTokenSettings } = useContext(ContractContext);
 
     const [loading, setLoading] = useState(false);
@@ -136,7 +136,19 @@ function TokenEdit({ setMode }) {
                                 <Grid item xs="12" sx={{ my: '1rem' }}>
                                     {
                                         account &&
-                                        <Button variant="contained" color="success" size="large" fullWidth onClick={submitTokenSettings}>Submit All</Button>
+                                        <>
+                                            {
+                                                (String(chainId) === '5' || String(chainId) === '0x5') &&
+                                                <Button variant="contained" color="success" size="large" fullWidth onClick={submitTokenSettings}>Submit All</Button>
+                                            }
+                                            {
+                                                !(String(chainId) === '5' || String(chainId) === '0x5') &&
+                                                <>
+                                                    <p>Change your network to Goerli Testnet</p>
+                                                    <Button variant="contained" color="success" size="large" onClick={() => changeNetwork('Goerli Testnet')}>Change Network to Goerli</Button>
+                                                </>
+                                            }
+                                        </>
                                     }
                                     {
                                         !account &&

@@ -46,26 +46,12 @@ export function WalletProvider({ children }) {
     }
 
     const networkSetting = {
-        'Mainnet': {
-            chainId: '0x1',
-            chainName: 'Ethereum Mainnet',
+        'Goerli Testnet': {
+            chainId: '0x5',
+            chainName: 'Goerli Testnet',
             nativeCurrency: { name: 'ETH', decimals: 18, symbol: 'ETH' },
-            rpcUrls: ['https://mainnet.infura.io/v3/'],
+            rpcUrls: ['https://goerli.infura.io/v3/'],
             blockExplorerUrls: ['https://etherscan.io'],
-        },
-        'Optimism': {
-            chainId: '0xa',
-            chainName: 'Optimistic Ethereum',
-            nativeCurrency: { name: 'OP', decimals: 18, symbol: 'ETH' },
-            rpcUrls: ['https://mainnet.optimism.io'],
-            blockExplorerUrls: ['https://optimistic.etherscan.io'],
-        },
-        'Arbitrum': {
-            chainId: '0xa4b1',
-            chainName: 'Arbitrum One',
-            nativeCurrency: { name: 'ARB', decimals: 18, symbol: 'ETH' },
-            rpcUrls: ['https://arb1.arbitrum.io/rpc'],
-            blockExplorerUrls: ['https://arbiscan.io'],
         },
     }
 
