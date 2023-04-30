@@ -17,10 +17,10 @@ function TokenView({ setMode, search }) {
     const handleInput = (e) => {
         const val = parseInt(e.target.value);
         if (isNaN(val)) {
-            setTid(0);
+            setTid(1);
             return;
         }
-        setTid(Math.max(0, Math.min(val, 499)));
+        setTid(Math.max(1, Math.min(val, 499)));
     }
 
     const fetchToken = async (e) => {
