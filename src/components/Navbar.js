@@ -13,7 +13,10 @@ function Navbar() {
         <>
             <nav className="navbar navbar-expand-lg bg-light">
                 <div className="container justify-content-between">
-                    <a className="navbar-brand" href="#">Platonic Solids</a>
+                    <a className="navbar-brand" href="#">
+                        <img src='logo192.png' alt='logo' width="50px" />
+                        OnChain3D - Testnet
+                    </a>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
@@ -26,7 +29,7 @@ function Navbar() {
                                 <Link className="nav-link" to="/mytokens">My Tokens</Link>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" target='_blank' href="#">Mint</a>
+                                <a className="nav-link" target='_blank' href="https://testnet.zora.co/collect/0x4af21df2dc80f617cc1f496a77bd2310685f1710">Mint</a>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link" to="/about">About</Link>

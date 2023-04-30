@@ -510,7 +510,7 @@ export function ContractProvider({ children }) {
   const [txhash, setTxhash] = useState('');
 
   const createTxHashLink = () => {
-    const base = "https://etherscan.io/tx/"
+    const base = "https://goerli.etherscan.io/tx/"
     return base + txhash;
   }
 
