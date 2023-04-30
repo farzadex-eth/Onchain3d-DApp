@@ -10,7 +10,7 @@ function Navbar() {
         <>
             <nav className="navbar navbar-expand-lg bg-light">
                 <div className="container justify-content-between">
-                    <a className="navbar-brand" href="#">
+                    <a className="navbar-brand" href="/">
                         <img src='logo192.png' alt='logo' width="50px" />
                         <span style={{margin: '0 0.5rem', display: 'inline-block'}}>OnChain3D - Testnet</span>
                     </a>
