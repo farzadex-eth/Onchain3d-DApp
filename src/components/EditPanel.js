@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import NumberInput from './NumberInput'
-import { Box, Button } from '@mui/material'
+import { Box } from '@mui/material'
 import TokenContext from '../TokenContext'
 import ToggleInput from './ToggleInput';
 import ColorInput from './ColorInput';

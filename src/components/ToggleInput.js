@@ -30,7 +30,7 @@ function ToggleInput({ s, update, resetAll }) {
         <>
             <div>
                 <span>{s.toggleNames[1]}</span>
-                <Switch checked={data} onChange={handleInputChange} />
+                <Switch id={s.key+'-inp'} checked={data} onChange={handleInputChange} />
                 <span>{s.toggleNames[0]}</span>
             </div>
             <div>

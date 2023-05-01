@@ -115,7 +115,7 @@ function TokenView({ setMode, search }) {
                         {
                             loading &&
                             <div className="mt-2">
-                            <img src='loading.jpg' className='loadinganim'/>
+                            <img src='loading.jpg' className='loadinganim' alt='token-view-loading'/>
                             <LinearProgress
                                 sx={{
                                     width: "80%",

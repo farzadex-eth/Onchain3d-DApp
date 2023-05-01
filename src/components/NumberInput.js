@@ -96,7 +96,7 @@ function NumberInput({ s, update, resetAll }) {
             {
                 s.num === 1 &&
                 <>
-                    <input type="number" name={s.slug + '-inp'} id={s.slug + '-inp'} value={data} onChange={handleInput} />
+                    <input type="number" name={s.key + '-inp'} id={s.key + '-inp'} value={data} onChange={handleInput} />
                     <span style={{ margin: '0 1rem' }}>{s.unit}</span>
                     <Slider
                         marks={marks1}
@@ -116,7 +116,7 @@ function NumberInput({ s, update, resetAll }) {
                         s.names.map((name, index) => (
                             <div key={s.key + '-input-' + index}>
                                 <span style={{ margin: '0 1rem' }}>{name}</span>
-                                <input type="number" name={s.slug + '-inp'} id={s.slug + '-inp'} value={data[index] / s.multiplier} onChange={(e) => handleInputArray(e, index)} />
+                                <input type="number" name={s.key + '-inp'} id={s.key + '-inp'} value={data[index] / s.multiplier} onChange={(e) => handleInputArray(e, index)} />
                                 <span style={{ margin: '0 1rem' }}>{s.unit}</span>
                                 <Slider
                                     marks={marks2}
