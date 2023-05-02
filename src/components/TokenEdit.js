@@ -138,14 +138,14 @@ function TokenEdit({ setMode }) {
                                         account &&
                                         <>
                                             {
-                                                (String(chainId) === '5' || String(chainId) === '0x5') &&
+                                                (String(chainId) === '11155111' || String(chainId) === '0xaa36a7') &&
                                                 <Button variant="contained" color="success" size="large" fullWidth onClick={submitTokenSettings}>Submit All</Button>
                                             }
                                             {
-                                                !(String(chainId) === '5' || String(chainId) === '0x5') &&
+                                                !(String(chainId) === '11155111' || String(chainId) === '0xaa36a7') &&
                                                 <>
                                                     <p>Change your network to Goerli Testnet</p>
-                                                    <Button variant="contained" color="success" size="large" onClick={() => changeNetwork('Goerli Testnet')}>Change Network to Goerli</Button>
+                                                    <Button variant="contained" color="success" size="large" onClick={() => changeNetwork('Sepolia Testnet')}>Change Network to Goerli</Button>
                                                 </>
                                             }
                                         </>

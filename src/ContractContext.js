@@ -27,7 +27,7 @@ export function ContractProvider({ children }) {
 
   // Contract
   // const contractAdr = '0xA707b2B93eECDFeE77AB8e66C9eef055cC9AdB15';
-  const contractAdr = '0x8e9f494a0e94909f94697A42dd0b4899505FeCBF';
+  const contractAdr = '0x6d04C3F8e618a2404803Ca72f5dF93f4F50CaD45';
   const contractABI = [
     {
       "inputs": [],
@@ -428,7 +428,7 @@ export function ContractProvider({ children }) {
   ];
 
   // const web3 = new Web3("https://testnode.outofcontext.tech");
-  const web3 = new Web3("https://ethereum-goerli-rpc.allthatnode.com");
+  const web3 = new Web3("https://rpc2.sepolia.org");
   const contract = new web3.eth.Contract(contractABI, contractAdr);
 
   const getTokenURI = async (tokenId) => {
@@ -510,7 +510,7 @@ export function ContractProvider({ children }) {
   const [txhash, setTxhash] = useState('');
 
   const createTxHashLink = () => {
-    const base = "https://goerli.etherscan.io/tx/"
+    const base = "https://sepolia.etherscan.io/tx/"
     return base + txhash;
   }
 
