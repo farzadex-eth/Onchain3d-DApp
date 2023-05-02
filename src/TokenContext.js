@@ -2,7 +2,7 @@ import { createContext, useState } from "react";
 
 const TokenContext = createContext();
 
-const settingProperties = [
+export const settingProperties = [
     {
         title: "Observer Position",
         key: "observer",
@@ -69,7 +69,7 @@ const settingProperties = [
     },
 ];
 
-const shapes = [
+export const shapes = [
     { name: "Tetrahedron", faces: 4 },
     { name: "Cube", faces: 6 },
     { name: "Octahedron", faces: 8 },

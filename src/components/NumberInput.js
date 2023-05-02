@@ -103,7 +103,7 @@ function NumberInput({ s, update, resetAll }) {
                         min={s.min}
                         max={s.max}
                         step={1}
-                        value={data}
+                        value={parseFloat(data)}
                         onChange={handleInput}
                         sx={{ fontFamily: 'monospace', width: "80%" }}
                     />
@@ -123,7 +123,7 @@ function NumberInput({ s, update, resetAll }) {
                                     min={s.min}
                                     max={s.max}
                                     step={0.1}
-                                    value={data[index] / s.multiplier}
+                                    value={parseFloat(data[index]) / s.multiplier}
                                     onChange={(e) => handleInputArray(e, index)}
                                     sx={{ fontFamily: 'monospace', width: "80%" }}
                                 />

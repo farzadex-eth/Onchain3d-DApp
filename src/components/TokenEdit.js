@@ -92,8 +92,8 @@ function TokenEdit({ setMode }) {
                         >
                             {
                                 loading &&
-                                <Grid item xs="12" sm="6">
-                                    <img src='loading2.jpg' className='loadinganim' />
+                                <Grid item xs={12} sm={6}>
+                                    <img src='loading2.jpg' className='loadinganim' alt="token-edit-loading" />
                                     <LinearProgress
                                         sx={{
                                             width: "80%",
@@ -105,11 +105,11 @@ function TokenEdit({ setMode }) {
                             }
                             {
                                 !loading && token.svg &&
-                                <Grid item xs="12" sm="6">
+                                <Grid item xs={12} sm={6}>
                                     <TokenSVG data={preview.svg} tid={token.tid} shape={shapes[token.tid % 5].name} />
                                 </Grid>
                             }
-                            <Grid item xs="12" sm="6">
+                            <Grid item xs={12} sm={6}>
                                 <Button variant='contained' size='small' sx={{ my: '1rem' }} onClick={rerenderPreview} >Preview All Changes</Button>
                                 <Button variant='contained' size='small' sx={{ my: '1rem' }} onClick={resetAll} color="error" >Reset All Changes</Button>
                                 <Box sx={{ bgcolor: 'background.paper' }}>
@@ -133,7 +133,7 @@ function TokenEdit({ setMode }) {
 
 
                                 </Box>
-                                <Grid item xs="12" sx={{ my: '1rem' }}>
+                                <Grid item xs={12} sx={{ my: '1rem' }}>
                                     {
                                         account &&
                                         <>
