@@ -16,7 +16,7 @@ function TokenThumbnail({ token }) {
     const fetchToken = async () => {
         setLoading(true);
         try {
-            const svg = await renderTokenById(token.tokenId);
+            const svg = await renderTokenById(token);
             setImage(svg);
         } catch (e) {
             console.error(e);
@@ -32,19 +32,19 @@ function TokenThumbnail({ token }) {
     })
 
     return (
-        <Link to={`/${token.tokenId}`}>
+        <Link to={`/${token}`}>
             {
                 loading &&
                 <div>
                     <Skeleton variant="circular" width={40} height={40} />
                     <Skeleton variant="rectangular" width={210} height={60} />
                     <Skeleton variant="rounded" width={210} height={60} />
-                    <p>Token #{token.tokenId} - {shapes[token.tokenId%5].name}</p>
+                    <p>Token #{token} - {shapes[token%5].name}</p>
                 </div>
             }
             {
                 !loading && image &&
-                <TokenSVG data={image} tid={token.tokenId} shape={shapes[token.tokenId%5].name} thumbnail />
+                <TokenSVG data={image} tid={token} shape={shapes[token%5].name} thumbnail />
             }
         </Link>
     )

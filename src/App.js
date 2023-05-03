@@ -2,6 +2,7 @@ import './App.css';
 import About from './components/About';
 import Background from './components/Background';
 import MainPage from './components/MainPage';
+import Mint from './components/Mint';
 import MyTokens from './components/MyTokens';
 import Navbar from './components/Navbar';
 import { ContractProvider } from './ContractContext';
@@ -27,6 +28,7 @@ function App() {
               <Route exact path="/:tid" element={<MainPage />} />
               <Route exact path="/mytokens" element={<MyTokens />} />
               <Route exact path="/about" element={<About />} />
+              <Route exact path="/mint" element={<Mint />} />
             </Routes>
           </Router>
           </TokenProvider>

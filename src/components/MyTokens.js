@@ -16,7 +16,7 @@ function MyTokens() {
         setLoading(true);
         try {
             const tokens = await getTokensOfAddress(account);
-            setToks(tokens.tokens.nodes);
+            setToks(tokens);
         } catch (e) {
             console.log(e);
         } finally {
@@ -49,7 +49,7 @@ function MyTokens() {
                         alignItems="flex-start"
                         alignContent="stretch"
                         wrap="wrap"
-                        sx={{ my: '2rem', overflowY: 'scroll' }}
+                        sx={{ my: '2rem', overflowY: 'scroll', maxHeight: '50vh' }}
                     >
                         {
                             !account &&
@@ -82,10 +82,11 @@ function MyTokens() {
                                       wrap="wrap"
                                       sx={{width: '90%', mx: 'auto'}}
                                     >
+                                        <Grid item xs={12}>{toks.length} Tokens</Grid>
                                       {
                                         toks.map((item) => (
-                                            <Grid item xs={4} key={item.token.tokenId} sx={{cursor: 'pointer'}}>
-                                                <TokenThumbnail token={item.token} />
+                                            <Grid item xs={4} key={item} sx={{cursor: 'pointer'}}>
+                                                <TokenThumbnail token={item} />
                                             </Grid>
                                         ))
                                       }

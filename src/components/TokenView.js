@@ -20,7 +20,7 @@ function TokenView({ setMode, search }) {
             setTid(1);
             return;
         }
-        setTid(Math.max(1, Math.min(val, 499)));
+        setTid(Math.max(0, Math.min(val, 9999)));
     }
 
     const fetchToken = async (e) => {

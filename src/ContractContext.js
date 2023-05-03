@@ -1,23 +1,8 @@
 import { createContext, useContext, useState } from "react";
 import Web3 from "web3";
 import WalletContext from "./WalletContext";
-import { Alert, AlertTitle, Box, Button, Link, Modal, Typography } from "@mui/material";
-import { ZDK, ZDKNetwork, ZDKChain } from "@zoralabs/zdk";
-
-
-const networkInfo = {
-  network: ZDKNetwork.Ethereum,
-  // chain: ZDKChain.Mainnet,
-  chain: ZDKChain.Goerli,
-}
-
-const API_ENDPOINT = "https://api.zora.co/graphql";
-const args = {
-  endPoint: API_ENDPOINT,
-  networks: [networkInfo],
-}
-
-const zdk = new ZDK(args) // All arguments are optional
+import { Alert, AlertTitle, Box, Button, Modal, Typography, Link } from "@mui/material";
+import { contractAdr, contractABI, proxyAdr, proxyABI } from "./Contracts";
 
 const ContractContext = createContext();
 
@@ -25,411 +10,10 @@ export function ContractProvider({ children }) {
 
   const { account } = useContext(WalletContext);
 
-  // Contract
-  // const contractAdr = '0xA707b2B93eECDFeE77AB8e66C9eef055cC9AdB15';
-  const contractAdr = '0x6d04C3F8e618a2404803Ca72f5dF93f4F50CaD45';
-  const contractABI = [
-    {
-      "inputs": [],
-      "stateMutability": "nonpayable",
-      "type": "constructor"
-    },
-    {
-      "inputs": [],
-      "name": "dist",
-      "outputs": [
-        {
-          "internalType": "int128",
-          "name": "",
-          "type": "int128"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint8",
-          "name": "_tokenId",
-          "type": "uint8"
-        },
-        {
-          "internalType": "string",
-          "name": "_name",
-          "type": "string"
-        },
-        {
-          "internalType": "int128[3][]",
-          "name": "_vertices",
-          "type": "int128[3][]"
-        },
-        {
-          "internalType": "bool[]",
-          "name": "_adjacency_matrix",
-          "type": "bool[]"
-        },
-        {
-          "internalType": "uint8[]",
-          "name": "_face_list",
-          "type": "uint8[]"
-        },
-        {
-          "internalType": "uint8",
-          "name": "_face_polygon",
-          "type": "uint8"
-        }
-      ],
-      "name": "solidStruct_IMU",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "id",
-          "type": "uint256"
-        },
-        {
-          "internalType": "int128[3]",
-          "name": "_observer",
-          "type": "int128[3]"
-        },
-        {
-          "internalType": "uint256",
-          "name": "_compressed",
-          "type": "uint256"
-        },
-        {
-          "internalType": "bytes",
-          "name": "_colorlist",
-          "type": "bytes"
-        }
-      ],
-      "name": "setMinimalSetting",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "id",
-          "type": "uint256"
-        }
-      ],
-      "name": "getGeneralSetting",
-      "outputs": [
-        {
-          "internalType": "bool",
-          "name": "",
-          "type": "bool"
-        },
-        {
-          "components": [
-            {
-              "internalType": "int128[3]",
-              "name": "observer",
-              "type": "int128[3]"
-            },
-            {
-              "internalType": "uint8",
-              "name": "opacity",
-              "type": "uint8"
-            },
-            {
-              "internalType": "bool",
-              "name": "rotating_mode",
-              "type": "bool"
-            },
-            {
-              "internalType": "uint16",
-              "name": "angular_speed_deg",
-              "type": "uint16"
-            },
-            {
-              "internalType": "bool",
-              "name": "dist_v_normalize",
-              "type": "bool"
-            },
-            {
-              "internalType": "bool",
-              "name": "face_or_wire",
-              "type": "bool"
-            },
-            {
-              "internalType": "uint24",
-              "name": "back_color",
-              "type": "uint24"
-            },
-            {
-              "internalType": "uint24",
-              "name": "wire_color",
-              "type": "uint24"
-            },
-            {
-              "internalType": "uint24[]",
-              "name": "color_list",
-              "type": "uint24[]"
-            }
-          ],
-          "internalType": "struct PlatonicRebornV4.GeneralSetting",
-          "name": "",
-          "type": "tuple"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "id",
-          "type": "uint256"
-        }
-      ],
-      "name": "getMinimalSetting",
-      "outputs": [
-        {
-          "internalType": "bool",
-          "name": "",
-          "type": "bool"
-        },
-        {
-          "components": [
-            {
-              "internalType": "int128[3]",
-              "name": "observer",
-              "type": "int128[3]"
-            },
-            {
-              "internalType": "uint256",
-              "name": "compressed",
-              "type": "uint256"
-            },
-            {
-              "internalType": "bytes",
-              "name": "colorlist",
-              "type": "bytes"
-            }
-          ],
-          "internalType": "struct PlatonicRebornV4.MinimalSetting",
-          "name": "",
-          "type": "tuple"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "components": [
-            {
-              "internalType": "uint64[]",
-              "name": "pix",
-              "type": "uint64[]"
-            },
-            {
-              "internalType": "uint256[]",
-              "name": "sorted_index",
-              "type": "uint256[]"
-            },
-            {
-              "internalType": "uint8[]",
-              "name": "face_list",
-              "type": "uint8[]"
-            },
-            {
-              "internalType": "uint24[]",
-              "name": "color_list",
-              "type": "uint24[]"
-            },
-            {
-              "internalType": "uint8",
-              "name": "opacity",
-              "type": "uint8"
-            },
-            {
-              "internalType": "uint8",
-              "name": "polygon",
-              "type": "uint8"
-            },
-            {
-              "internalType": "uint24",
-              "name": "back_color",
-              "type": "uint24"
-            }
-          ],
-          "internalType": "struct PlatonicRebornV4.poly_struct",
-          "name": "pls0",
-          "type": "tuple"
-        }
-      ],
-      "name": "svgPolygon",
-      "outputs": [
-        {
-          "internalType": "string",
-          "name": "",
-          "type": "string"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "components": [
-            {
-              "internalType": "uint64[]",
-              "name": "pix",
-              "type": "uint64[]"
-            },
-            {
-              "internalType": "bool[]",
-              "name": "adj",
-              "type": "bool[]"
-            },
-            {
-              "internalType": "uint24",
-              "name": "wire_color",
-              "type": "uint24"
-            },
-            {
-              "internalType": "uint256",
-              "name": "lenVertices",
-              "type": "uint256"
-            },
-            {
-              "internalType": "uint24",
-              "name": "back_color",
-              "type": "uint24"
-            }
-          ],
-          "internalType": "struct PlatonicRebornV4.wire_struct",
-          "name": "wrs0",
-          "type": "tuple"
-        }
-      ],
-      "name": "svgWireframe",
-      "outputs": [
-        {
-          "internalType": "string",
-          "name": "",
-          "type": "string"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "tid",
-          "type": "uint256"
-        },
-        {
-          "internalType": "int128[3]",
-          "name": "_observerP",
-          "type": "int128[3]"
-        },
-        {
-          "internalType": "uint256",
-          "name": "_compressedP",
-          "type": "uint256"
-        },
-        {
-          "internalType": "bytes",
-          "name": "_colorlistP",
-          "type": "bytes"
-        }
-      ],
-      "name": "previewTokenById",
-      "outputs": [
-        {
-          "internalType": "string",
-          "name": "",
-          "type": "string"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "tokenId",
-          "type": "uint256"
-        }
-      ],
-      "name": "tokenURI",
-      "outputs": [
-        {
-          "internalType": "string",
-          "name": "",
-          "type": "string"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "tid",
-          "type": "uint256"
-        }
-      ],
-      "name": "renderTokenById",
-      "outputs": [
-        {
-          "internalType": "string",
-          "name": "",
-          "type": "string"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "bytes",
-          "name": "colorlist",
-          "type": "bytes"
-        }
-      ],
-      "name": "color_listConverter",
-      "outputs": [
-        {
-          "internalType": "uint24[]",
-          "name": "",
-          "type": "uint24[]"
-        }
-      ],
-      "stateMutability": "pure",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "sss",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    }
-  ];
 
-  // const web3 = new Web3("https://testnode.outofcontext.tech");
-  const web3 = new Web3("https://rpc2.sepolia.org");
+  const web3 = new Web3("https://rpc.sepolia.org");
   const contract = new web3.eth.Contract(contractABI, contractAdr);
+  const proxy = new web3.eth.Contract(proxyABI, proxyAdr);
 
   const getTokenURI = async (tokenId) => {
     try {
@@ -504,7 +88,10 @@ export function ContractProvider({ children }) {
     }
   }
 
+  const [writeMode, setWriteMode] = useState("mint");
   const [changed, setChanged] = useState(false);
+  const [minted, setMinted] = useState(false);
+  const [mintNum, setMintNum] = useState(0);
   const [error, setError] = useState('');
   const [open, setOpen] = useState(false);
   const [txhash, setTxhash] = useState('');
@@ -525,8 +112,10 @@ export function ContractProvider({ children }) {
 
     setOpen(true);
     setChanged(false);
+    setMinted(false);
     setError(false);
     setTxhash('');
+    setWriteMode("settings");
 
     const w = new Web3(window.ethereum);
     const c = new w.eth.Contract(contractABI, contractAdr);
@@ -556,17 +145,61 @@ export function ContractProvider({ children }) {
 
   }
 
-  const getTokensOfAddress = async (ownerAdr) => {
-    const where = {
-      collectionAddresses: "0x4Af21DF2DC80F617cC1F496A77Bd2310685F1710",
-      ownerAddresses: ownerAdr,
-    }
-    const tokens = await zdk.tokens(
+  const mintTokens = async (num) => {
+
+    setOpen(true);
+    setChanged(false);
+    setMinted(false);
+    setError(false);
+    setTxhash('');
+    setMintNum(num);
+    setWriteMode("mint");
+
+    const w = new Web3(window.ethereum);
+    const c = new w.eth.Contract(proxyABI, proxyAdr);
+
+    c.methods.mintToken(num).send(
       {
-        where: where,
+        from: account,
+        value: web3.utils.toWei(String(num * 0.01), 'ether')
       }
     )
+      .on('transactionHash', (hash) => {
+        console.log(hash);
+        setTxhash(hash);
+      })
+      .on('receipt', (rec) => {
+        console.log(rec);
+        setMinted(true);
+      })
+      .on('error', (error, receipt) => {
+        console.log(error);
+        setError(error.message);
+      })
+
+  }
+
+  const getTokensOfAddress = async (ownerAdr) => {
+    let tokens = [];
+    try {
+      const balance = await proxy.methods.balanceOf(ownerAdr).call();
+      for (let i = 0; i < balance; i++) {
+        const tid = await proxy.methods.tokenOfOwnerByIndex(ownerAdr, i).call();
+        tokens.push(tid);
+      }
+    } catch (e) {
+      throw new Error(e);
+    }
     return tokens;
+  }
+
+  const totalMinted = async () => {
+    try {
+      const total = await proxy.methods.totalSupply().call();
+      return total;
+    } catch (e) {
+      throw new Error(e);
+    }
   }
 
 
@@ -580,7 +213,9 @@ export function ContractProvider({ children }) {
       getSetting: getSetting,
       getTokenPreview: getTokenPreview,
       setTokenSettings: setTokenSettings,
+      mintTokens: mintTokens,
       getTokensOfAddress: getTokensOfAddress,
+      totalMinted: totalMinted,
     }}>
       <Modal
         open={open}
@@ -588,7 +223,16 @@ export function ContractProvider({ children }) {
         onClose={handleModalClose}
       >
         <Box className="tx-modal">
-          <Typography variant='title' display='block' sx={{ textAlign: 'center', color: 'black' }}>Submit changes to token</Typography>
+          <Typography variant='title' display='block' sx={{ textAlign: 'center', color: 'black' }}>
+            {
+              writeMode === "settings" &&
+              <span>Submit changes to token</span>
+            }
+            {
+              writeMode === "mint" &&
+              <span>Minting {mintNum} Tokens</span>
+            }
+          </Typography>
           {
             txhash &&
             <>
@@ -602,9 +246,9 @@ export function ContractProvider({ children }) {
             </>
           }
           {
-            !error && !changed && txhash &&
+            !(error || changed || minted) && txhash &&
             <div>
-              <img src='txloading.jpg' className='loadinganimw' />
+              <img src='txloading.jpg' className='loadinganimw' alt="tx-waiting" />
             </div>
           }
           {
@@ -628,7 +272,16 @@ export function ContractProvider({ children }) {
             </>
           }
           {
-            (error || changed) &&
+            minted &&
+            <>
+              <Alert severity='success' sx={{ my: '1rem', fontFamily: 'inherit' }}>
+                <AlertTitle sx={{ fontFamily: 'inherit' }}>Tokens Minted Successfully</AlertTitle>
+                You can view your tokens in <a href="/mytokens">My Tokens</a> page
+              </Alert>
+            </>
+          }
+          {
+            (error || changed || minted) &&
             <Button variant='contained' color='warning' onClick={closeModal} fullWidth>Close</Button>
           }
 

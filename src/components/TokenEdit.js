@@ -144,7 +144,7 @@ function TokenEdit({ setMode }) {
                                             {
                                                 !(String(chainId) === '11155111' || String(chainId) === '0xaa36a7') &&
                                                 <>
-                                                    <p>Change your network to Goerli Testnet</p>
+                                                    <p>Change your network to Sepolia Testnet</p>
                                                     <Button variant="contained" color="success" size="large" onClick={() => changeNetwork('Sepolia Testnet')}>Change Network to Goerli</Button>
                                                 </>
                                             }
