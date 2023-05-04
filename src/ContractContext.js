@@ -569,16 +569,16 @@ export function ContractProvider({ children }) {
     return tokens;
   }
 
-  const getTotalSupply = async () => {
+  const totalMinted = async () => {
     const where = {
       collectionAddresses: "0x4Af21DF2DC80F617cC1F496A77Bd2310685F1710",
     }
-    const total = await zdk.nftCount(
+    const stat = await zdk.nftCount(
       {
         where: where,
       }
     )
-    return total;
+    return stat.aggregateStat.nftCount;
   }
 
 
@@ -593,7 +593,7 @@ export function ContractProvider({ children }) {
       getTokenPreview: getTokenPreview,
       setTokenSettings: setTokenSettings,
       getTokensOfAddress: getTokensOfAddress,
-      getTotalSupply: getTotalSupply,
+      totalMinted: totalMinted,
     }}>
       <Modal
         open={open}

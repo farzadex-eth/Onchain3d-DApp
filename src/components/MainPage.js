@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import TokenView from './TokenView';
 import TokenEdit from './TokenEdit';
 import { useParams } from 'react-router-dom';
@@ -9,17 +9,25 @@ function MainPage() {
 
     const { tid } = useParams();
 
-    const { getTotalSupply } = useContext(ContractContext);
+    const { totalMinted } = useContext(ContractContext);
 
     const [total, setTotal] = useState("_");
     const [mode, setMode] = useState(0);
+    const updated = useRef(false);
 
     const getNumMinted = async () => {
-        const t = await getTotalSupply();
-        setTotal(t);
+        totalMinted()
+            .then((num) => {
+                updated.current = true;
+                setTotal(num);
+            });
     }
 
-    getNumMinted();
+    useEffect(() => {
+        if(!updated.current) {
+            getNumMinted();
+        }
+    })
 
     return (
         <>
