@@ -12,7 +12,7 @@ function Navbar() {
                 <div className="container justify-content-between">
                     <a className="navbar-brand" href="/">
                         <img src='logo192.png' alt='logo' width="50px" />
-                        <span style={{margin: '0 0.5rem', display: 'inline-block'}}>OnChain3D - Testnet</span>
+                        <span style={{margin: '0 0.5rem', display: 'inline-block'}}>OnChain3D - Goerli</span>
                     </a>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
