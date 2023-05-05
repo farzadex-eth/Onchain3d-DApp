@@ -22,9 +22,10 @@ function Navbar() {
                     </button>
                     <div className="collapse navbar-collapse" id="navbarNav">
                         <ul className="navbar-nav">
-                            {/* <li className="nav-item">
+                            <li className="nav-item">
                                 <Link className="nav-link active" to="/">Home</Link>
                             </li>
+                            {/*
                             <li className="nav-item">
                                 <Link className="nav-link" to="/mytokens">My Tokens</Link>
                             </li> */}
@@ -34,9 +35,9 @@ function Navbar() {
                             <li className="nav-item">
                                 <a className="nav-link" target='_blank' href="https://sepolia.onchain3d.xyz">Sepolia</a>
                             </li>
-                            {/* <li className="nav-item">
+                            <li className="nav-item">
                                 <Link className="nav-link" to="/about">About</Link>
-                            </li> */}
+                            </li>
                         </ul>
                     </div>
                     {/* {
