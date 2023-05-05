@@ -49,7 +49,7 @@ function MyTokens() {
                         alignItems="flex-start"
                         alignContent="stretch"
                         wrap="wrap"
-                        sx={{ my: '2rem', overflowY: 'scroll', maxHeight: '50vh' }}
+                        sx={{ my: '2rem', overflowY: 'scroll', maxHeight: '90vh' }}
                     >
                         {
                             !account &&
@@ -81,11 +81,12 @@ function MyTokens() {
                                       alignContent="stretch"
                                       wrap="wrap"
                                       sx={{width: '90%', mx: 'auto'}}
+                                      columns={10}
                                     >
-                                        <Grid item xs={12}>{toks.length} Tokens</Grid>
+                                        <Grid item xs={10}>{toks.length} Tokens</Grid>
                                       {
                                         toks.map((item) => (
-                                            <Grid item xs={4} key={item} sx={{cursor: 'pointer'}}>
+                                            <Grid item xs={2} key={item} sx={{cursor: 'pointer'}}>
                                                 <TokenThumbnail token={item} />
                                             </Grid>
                                         ))
