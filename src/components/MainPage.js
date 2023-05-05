@@ -33,7 +33,7 @@ function MainPage() {
                         You can test our collection and dapp with full functionalities on <a href="https://goerli.onchain3d.xyz" target='_blank'>Goerli</a> and <a href="https://sepolia.onchain3d.xyz" target='_blank'>Sepolia</a> testnets
                     </Typography>
 
-                    <Typography component="p" variant="button">
+                    <Typography component="p" variant="button" sx={{ mb: '1rem' }}>
                         <Link to="/about"><Button variant="contained">Read about this project</Button></Link>
                     </Typography>
                 </div>
