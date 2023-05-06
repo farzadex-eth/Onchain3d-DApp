@@ -12,7 +12,7 @@ function MainPage() {
     const [mode, setMode] = useState(0);
 
     return (
-        <>
+        <div style={{ minHeight: '90vh'}}>
             <Container maxWidth="lg">
                 <div className="appbox">
                     <Typography component="h1" variant="h4" color="black"
@@ -38,7 +38,7 @@ function MainPage() {
                     </Typography>
                 </div>
             </Container>
-        </>
+        </div>
         // <>
         //     {
         //         mode === 0 &&

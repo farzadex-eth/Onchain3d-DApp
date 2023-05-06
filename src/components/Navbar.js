@@ -30,10 +30,10 @@ function Navbar() {
                                 <Link className="nav-link" to="/mytokens">My Tokens</Link>
                             </li> */}
                             <li className="nav-item">
-                                <a className="nav-link" target='_blank' href="https://goerli.onchain3d.xyz">Goerli</a>
+                                <a className="nav-link" target='_blank' href="https://goerli.onchain3d.xyz" rel="noreferrer">Goerli</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" target='_blank' href="https://sepolia.onchain3d.xyz">Sepolia</a>
+                                <a className="nav-link" target='_blank' href="https://sepolia.onchain3d.xyz" rel="noreferrer">Sepolia</a>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link" to="/about">About</Link>
