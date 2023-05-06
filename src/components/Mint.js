@@ -33,7 +33,7 @@ function Mint() {
 
     return (
         <>
-            <Container maxWidth="lg">
+            <Container maxWidth="lg" sx={{ minHeight: '90vh' }}>
                 <div className="appbox">
                     <Typography component="h1" variant="h4" color="black"
                         sx={{
