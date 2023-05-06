@@ -36,7 +36,7 @@ function TwitterCard({ photo, banner, name, handle, footer }) {
             <Card sx={{ background: 'rgba(26, 140, 216, 0.2)' }}>
                 <CardHeader
                     avatar={
-                        <Avatar aria-label="sciNFTist-twitter" sx={{ border: "2px solid black", width: "15%", height: "auto" }}>
+                        <Avatar aria-label="sciNFTist-twitter" sx={{ border: "2px solid black", height: "auto" }}>
                             <img src={photo} alt={`${handle}-twitter`} width="100%" />
                         </Avatar>
                     }
