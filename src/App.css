@@ -175,6 +175,13 @@
   font-family: monospace !important;
 }
 
+footer {
+  width: 100%;
+  background: rgba(247, 246, 228, 0.8);
+  border: 1px solid rgba(229, 187, 187, 0.49);
+  padding: 1rem 0;
+}
+
 @media screen and (max-width:400px)  { 
   .settingrow {
     font-size: 12px;

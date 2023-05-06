@@ -4,6 +4,7 @@ import Background from './components/Background';
 import MainPage from './components/MainPage';
 import MyTokens from './components/MyTokens';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 import { ContractProvider } from './ContractContext';
 import { TokenProvider } from './TokenContext';
 import { WalletProvider } from './WalletContext';
@@ -29,6 +30,7 @@ function App() {
               <Route exact path="/about" element={<About />} />
             </Routes>
           </Router>
+          <Footer />
           </TokenProvider>
         </ContractProvider>
       </WalletProvider>

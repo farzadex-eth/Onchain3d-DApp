@@ -30,7 +30,7 @@ function MainPage() {
     })
 
     return (
-        <>
+        <div style={{minHeight: '90vh'}}>
             <Container maxWidth="lg">
                 <Alert severity='info' sx={{ fontFamily: "monospace", fontWeight: 'bold', fontSize: "18px" }}>
                     {
@@ -51,7 +51,7 @@ function MainPage() {
                 mode === 1 &&
                 <TokenEdit setMode={setMode} />
             }
-        </>
+        </div>
     )
 }
 
