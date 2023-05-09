@@ -5,6 +5,7 @@ import TokenSVG from './TokenSVG';
 import TokenContext from '../TokenContext';
 import EditPanel from './EditPanel';
 import WalletContext from '../WalletContext';
+import EditGroupPanel from './EditGroupPanel';
 
 function TokenEdit({ setMode }) {
 
@@ -14,10 +15,9 @@ function TokenEdit({ setMode }) {
 
     const [loading, setLoading] = useState(false);
     const [tab, setTab] = useState(0);
+
     const [render, setRender] = useState(0);
     const [resetChanges, setResetChanges] = useState(false);
-
-    // console.log(preview)
 
     const fetchTokenPrev = async () => {
         setLoading(true);
@@ -117,35 +117,35 @@ function TokenEdit({ setMode }) {
                                         value={tab}
                                         onChange={handleTabChange}
                                         variant="scrollable"
-                                        scrollButtons="auto"
+                                        scrollButtons
+                                        allowScrollButtonsMobile
+                                        centered
                                     >
                                         {
-                                            settingProperties.map((s, index) => (
-                                                <Tab label={s.title} key={s.key} sx={{ fontFamily: 'monospace', fontWeight: 'bold' }} />
+                                            settingProperties.map((s) => (
+                                                <Tab label={s.title} key={s.title} sx={{ fontFamily: 'monospace', fontWeight: 'bold', fontSize: '16px' }} />
                                             ))
                                         }
                                     </Tabs>
                                     {
                                         settingProperties.map((s, index) => (
-                                            <EditPanel sp={s} value={tab} index={index} resetAll={resetChanges} key={s.key + '-editpanel'} />
+                                            <EditGroupPanel sp={s} value={tab} index={index} resetAll={resetChanges} key={s.title + '-editpanel'} />
                                         ))
                                     }
-
-
                                 </Box>
                                 <Grid item xs={12} sx={{ my: '1rem' }}>
                                     {
                                         account &&
                                         <>
                                             {
-                                                (String(chainId) === '5' || String(chainId) === '0x5') &&
+                                                (String(chainId) === '11155111' || String(chainId) === '0xaa36a7') &&
                                                 <Button variant="contained" color="success" size="large" fullWidth onClick={submitTokenSettings}>Submit All</Button>
                                             }
                                             {
-                                                !(String(chainId) === '5' || String(chainId) === '0x5') &&
+                                                !(String(chainId) === '11155111' || String(chainId) === '0xaa36a7') &&
                                                 <>
-                                                    <p>Change your network to Goerli Testnet</p>
-                                                    <Button variant="contained" color="success" size="large" onClick={() => changeNetwork('Goerli Testnet')}>Change Network to Goerli</Button>
+                                                    <p>Change your network to Sepolia Testnet</p>
+                                                    <Button variant="contained" color="success" size="large" onClick={() => changeNetwork('Sepolia Testnet')}>Change Network to Goerli</Button>
                                                 </>
                                             }
                                         </>
