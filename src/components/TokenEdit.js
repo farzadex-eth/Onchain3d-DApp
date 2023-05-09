@@ -5,6 +5,7 @@ import TokenSVG from './TokenSVG';
 import TokenContext from '../TokenContext';
 import EditPanel from './EditPanel';
 import WalletContext from '../WalletContext';
+import EditGroupPanel from './EditGroupPanel';
 
 function TokenEdit({ setMode }) {
 
@@ -14,10 +15,9 @@ function TokenEdit({ setMode }) {
 
     const [loading, setLoading] = useState(false);
     const [tab, setTab] = useState(0);
+
     const [render, setRender] = useState(0);
     const [resetChanges, setResetChanges] = useState(false);
-
-    // console.log(preview)
 
     const fetchTokenPrev = async () => {
         setLoading(true);
@@ -117,21 +117,21 @@ function TokenEdit({ setMode }) {
                                         value={tab}
                                         onChange={handleTabChange}
                                         variant="scrollable"
-                                        scrollButtons="auto"
+                                        scrollButtons
+                                        allowScrollButtonsMobile
+                                        centered
                                     >
                                         {
-                                            settingProperties.map((s, index) => (
-                                                <Tab label={s.title} key={s.key} sx={{ fontFamily: 'monospace', fontWeight: 'bold' }} />
+                                            settingProperties.map((s) => (
+                                                <Tab label={s.title} key={s.title} sx={{ fontFamily: 'monospace', fontWeight: 'bold', fontSize: '16px' }} />
                                             ))
                                         }
                                     </Tabs>
                                     {
                                         settingProperties.map((s, index) => (
-                                            <EditPanel sp={s} value={tab} index={index} resetAll={resetChanges} key={s.key + '-editpanel'} />
+                                            <EditGroupPanel sp={s} value={tab} index={index} resetAll={resetChanges} key={s.title + '-editpanel'} />
                                         ))
                                     }
-
-
                                 </Box>
                                 <Grid item xs={12} sx={{ my: '1rem' }}>
                                     {
