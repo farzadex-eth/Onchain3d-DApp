@@ -75,6 +75,7 @@ function TokenView({ setMode, search }) {
         if(search && !isNaN(search)) {
             hasParam();
         }
+        // eslint-disable-next-line
     }, [search])
 
     return (

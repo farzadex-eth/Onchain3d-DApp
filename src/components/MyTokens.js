@@ -26,6 +26,7 @@ function MyTokens() {
 
     useEffect(() => {
         fetchTokens();
+        // eslint-disable-next-line
     }, [account])
 
     return (

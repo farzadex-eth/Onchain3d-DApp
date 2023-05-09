@@ -3,7 +3,6 @@ import ContractContext from '../ContractContext';
 import { Box, Container, Typography, Button, Grid, LinearProgress, Tabs, Tab } from '@mui/material';
 import TokenSVG from './TokenSVG';
 import TokenContext from '../TokenContext';
-import EditPanel from './EditPanel';
 import WalletContext from '../WalletContext';
 import EditGroupPanel from './EditGroupPanel';
 
@@ -61,6 +60,7 @@ function TokenEdit({ setMode }) {
 
     useEffect(() => {
         fetchTokenPrev();
+        // eslint-disable-next-line
     }, [render])
 
     return (
