@@ -15,8 +15,8 @@ Developed by [sciNFTist_eth](https://github.com/shypink): [OnChain3d Contracts R
 
 
 ## DApp
-This branch is a fully functional DApp for the contract deployed on Sepolia testnet. Tokens on Seploia testnet are minted on the DApp. 
-[OnChain3d Sepolia DApp](https://sepolia.onchain3d.xyz)
+This branch is a fully functional DApp for the contract deployed on Goerli testnet. Tokens on Goerli testnet are minted on Zora.
+[OnChain3d Goerli DApp](https://goerli.onchain3d.xyz)
 
 ## How to use
 
