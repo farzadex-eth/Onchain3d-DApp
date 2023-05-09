@@ -186,7 +186,6 @@ function TokenView({ setMode, search }) {
                                             >
                                                 <Grid item xs="12" className="rowanim">Face Colors: </Grid>
                                                 {
-                                                    // token.settings.color_list.length > 0 &&
                                                     token.settings.color_list.slice(0, shapes[token.tid % 5].faces).map((num, index) => (
                                                         <Grid item xs="3" key={index}>
                                                             {index < 10 ? <span>&nbsp;{index}</span> : index}
