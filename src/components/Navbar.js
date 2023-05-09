@@ -12,7 +12,7 @@ function Navbar() {
                 <div className="container justify-content-between">
                     <a className="navbar-brand" href="/">
                         <img src='logo192.png' alt='logo' width="50px" />
-                        <span style={{margin: '0 0.5rem', display: 'inline-block'}}>OnChain3D - Goerli</span>
+                        <span style={{ margin: '0 0.5rem', display: 'inline-block' }}>OnChain3D - Goerli</span>
                     </a>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
@@ -20,13 +20,16 @@ function Navbar() {
                     <div className="collapse navbar-collapse" id="navbarNav">
                         <ul className="navbar-nav">
                             <li className="nav-item">
-                                <Link className="nav-link active" to="/">Home</Link>
+                                <a className="nav-link" href="https://onchain3d.xyz">Main</a>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/">View</Link>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link" to="/mytokens">My Tokens</Link>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" target='_blank' href="https://testnet.zora.co/collect/0x4af21df2dc80f617cc1f496a77bd2310685f1710">Mint</a>
+                                <a className="nav-link" target='_blank' href="https://testnet.zora.co/collect/0x4af21df2dc80f617cc1f496a77bd2310685f1710" rel="noreferrer">Mint</a>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link" to="/about">About</Link>
