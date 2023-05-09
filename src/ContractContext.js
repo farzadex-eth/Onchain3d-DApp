@@ -230,9 +230,6 @@ export function ContractProvider({ children }) {
             <>
               <Alert severity='success' sx={{ my: '1rem', fontFamily: 'inherit' }}>
                 <AlertTitle sx={{ fontFamily: 'inherit' }}>Changes Submitted Successfully</AlertTitle>
-                {/* <Link href={'https://opensea.io/assets/ethereum/0xc3120f76424c21a4019a10fbc90af0481b267123/' + ostid} underline="none" target="_blank">
-                  View On OpenSea
-                </Link> */}
               </Alert>
             </>
           }
