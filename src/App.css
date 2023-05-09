@@ -45,6 +45,10 @@
   border: 1px solid black;
 }
 
+.nav-link {
+  text-decoration: underline;
+}
+
 .appbox {
   min-height: 30vh;
   width: 100%;

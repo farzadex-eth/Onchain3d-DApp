@@ -17,7 +17,7 @@ function Navbar() {
                     <div className="collapse navbar-collapse" id="navbarNav">
                         <ul className="navbar-nav">
                             <li className="nav-item">
-                                <Link className="nav-link active" to="/">Home</Link>
+                                <Link className="nav-link" to="/">Home</Link>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" target='_blank' href="https://goerli.onchain3d.xyz" rel="noreferrer">Goerli</a>
