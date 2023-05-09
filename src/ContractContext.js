@@ -7,7 +7,6 @@ import { ZDK, ZDKNetwork, ZDKChain } from "@zoralabs/zdk";
 
 const networkInfo = {
   network: ZDKNetwork.Ethereum,
-  // chain: ZDKChain.Mainnet,
   chain: ZDKChain.Goerli,
 }
 
@@ -17,7 +16,7 @@ const args = {
   networks: [networkInfo],
 }
 
-const zdk = new ZDK(args) // All arguments are optional
+const zdk = new ZDK(args) 
 
 const ContractContext = createContext();
 
@@ -25,8 +24,6 @@ export function ContractProvider({ children }) {
 
   const { account } = useContext(WalletContext);
 
-  // Contract
-  // const contractAdr = '0xA707b2B93eECDFeE77AB8e66C9eef055cC9AdB15';
   const contractAdr = '0x8e9f494a0e94909f94697A42dd0b4899505FeCBF';
   const contractABI = [
     {
@@ -427,7 +424,6 @@ export function ContractProvider({ children }) {
     }
   ];
 
-  // const web3 = new Web3("https://testnode.outofcontext.tech");
   const web3 = new Web3("https://ethereum-goerli-rpc.allthatnode.com");
   const contract = new web3.eth.Contract(contractABI, contractAdr);
 
@@ -477,7 +473,6 @@ export function ContractProvider({ children }) {
     arr.forEach((num) => {
       hexString += web3.utils.padLeft(web3.utils.numberToHex(num), 6).replace('0x', '');
     })
-    // return web3.utils.hexToBytes(hexString);
     return hexString;
   }
 
@@ -617,7 +612,7 @@ export function ContractProvider({ children }) {
           {
             !error && !changed && txhash &&
             <div>
-              <img src='txloading.jpg' className='loadinganimw' />
+              <img src='txloading.jpg' className='loadinganimw' alt="tx-waiting" />
             </div>
           }
           {

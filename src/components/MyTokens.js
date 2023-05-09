@@ -26,6 +26,7 @@ function MyTokens() {
 
     useEffect(() => {
         fetchTokens();
+        // eslint-disable-next-line
     }, [account])
 
     return (
@@ -59,7 +60,7 @@ function MyTokens() {
                         }
                         {
                             account &&
-                            <Box sx={{width: '100%'}}>
+                            <Box sx={{ width: '100%' }}>
                                 {
                                     loading &&
                                     <LinearProgress
@@ -73,22 +74,24 @@ function MyTokens() {
                                 {
                                     !loading && Array.isArray(toks) &&
                                     <Grid
-                                      container
-                                      spacing={1}
-                                      direction="row"
-                                      justify="space-between"
-                                      alignItems="flex-start"
-                                      alignContent="stretch"
-                                      wrap="wrap"
-                                      sx={{width: '90%', mx: 'auto'}}
+                                        container
+                                        spacing={1}
+                                        direction="row"
+                                        justify="space-between"
+                                        alignItems="flex-start"
+                                        alignContent="stretch"
+                                        wrap="wrap"
+                                        sx={{ width: '90%', mx: 'auto' }}
+                                        columns={10}
                                     >
-                                      {
-                                        toks.map((item) => (
-                                            <Grid item xs={4} key={item.token.tokenId} sx={{cursor: 'pointer'}}>
-                                                <TokenThumbnail token={item.token} />
-                                            </Grid>
-                                        ))
-                                      }
+                                        <Grid item xs={10}>{toks.length} Tokens</Grid>
+                                        {
+                                            toks.map((item) => (
+                                                <Grid item xs={2} key={item.token.tokenId} sx={{ cursor: 'pointer' }}>
+                                                    <TokenThumbnail token={item.token} />
+                                                </Grid>
+                                            ))
+                                        }
                                     </Grid>
                                 }
                             </Box>
