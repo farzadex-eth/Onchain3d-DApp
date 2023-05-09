@@ -4,6 +4,10 @@ OnChain3D is an innovative and challenging effort to create a 3D rendering algor
 
 The OnChain3D project was a result of the collaboration between two friends who shared a passion for blockchain technology and 3D rendering. [SciNFTist.eth](https://twitter.com/sciNFTist") developed the algorithm and [Farzadex.eth](https://twitter.com/farzadex) developed the best in class Dapp to enable users to interact with the project.
 
+OnChain3D smart contract provides an interactive interface for users to modify the rendered image by changing the observer position, viewing mode, color, and opacity, etc. This feature allows users to explore and manipulate the 3D shape in real-time, providing a unique and engaging user experience.
+
+![Token Edit Sample](public/token-edit.gif)
+
 **Read more about this project on our [Website](https://onchain3d.xyz)**
 
 ## Contracts
@@ -24,11 +28,11 @@ This repo contains 3 branches:
 
 In the project directory, run:
 
-### `npm install`
+`npm install`
 
 Installs required packages for the project
 
-### `npm start`
+`npm start`
 
 Runs development server
 
