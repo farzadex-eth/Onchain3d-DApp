@@ -1,13 +1,7 @@
-import React, { useContext } from 'react'
-import WalletContext from '../WalletContext'
+import React from 'react'
 import { Link } from 'react-router-dom';
 
 function Navbar() {
-
-    const { account, walletConnect, disconnectAccount, truncateAddress } = useContext(WalletContext);
-    const nets = [
-        "Mainnet",
-    ];
 
     return (
         <>
@@ -25,10 +19,6 @@ function Navbar() {
                             <li className="nav-item">
                                 <Link className="nav-link active" to="/">Home</Link>
                             </li>
-                            {/*
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/mytokens">My Tokens</Link>
-                            </li> */}
                             <li className="nav-item">
                                 <a className="nav-link" target='_blank' href="https://goerli.onchain3d.xyz" rel="noreferrer">Goerli</a>
                             </li>
@@ -40,17 +30,6 @@ function Navbar() {
                             </li>
                         </ul>
                     </div>
-                    {/* {
-                        !account &&
-                        <button type="button" className="btn btn-primary" onClick={walletConnect}>Connect Wallet</button>
-                    }
-                    {
-                        account &&
-                        <div className="text-light">
-                            <span className='mx-3 text-dark'>{truncateAddress(account)}</span>
-                            <button type="button" className="btn btn-warning" onClick={disconnectAccount}>Disconnect</button>
-                        </div>
-                    } */}
                 </div>
             </nav>
         </>

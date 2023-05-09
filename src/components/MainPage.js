@@ -1,15 +1,9 @@
-import React, { useContext, useState } from 'react'
-import TokenView from './TokenView';
-import TokenEdit from './TokenEdit';
+import React, { useState } from 'react'
 import { Link, useParams } from 'react-router-dom';
 import Container from '@mui/material/Container'
 import { Button, Typography } from '@mui/material';
 
 function MainPage() {
-
-    const { tid } = useParams();
-
-    const [mode, setMode] = useState(0);
 
     return (
         <div style={{ minHeight: '90vh'}}>
