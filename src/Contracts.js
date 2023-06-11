@@ -1,4 +1,4 @@
-const contractAdr = '0x8e9f494a0e94909f94697A42dd0b4899505FeCBF';
+const contractAdr = '0xb4F09f46D0160e220A58Ec908E600dCE254271c9';
 const contractABI = [
   {
     "inputs": [],
@@ -398,6 +398,6 @@ const contractABI = [
   }
 ];
 
-const proxyAdr = "0x4Af21DF2DC80F617cC1F496A77Bd2310685F1710";
+const proxyAdr = "0x4791403Cea0b4Ae44A911bB2308CC58F98392e67";
 
 export { contractAdr, contractABI, proxyAdr }

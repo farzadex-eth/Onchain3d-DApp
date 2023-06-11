@@ -1,10 +1,12 @@
 import React, { useContext } from 'react'
 import WalletContext from '../WalletContext'
 import { Link } from 'react-router-dom';
+import { proxyAdr } from '../Contracts';
 
 function Navbar() {
 
     const { account, walletConnect, disconnectAccount, truncateAddress } = useContext(WalletContext);
+
 
     return (
         <>
@@ -29,7 +31,7 @@ function Navbar() {
                                 <Link className="nav-link" to="/mytokens">My Tokens</Link>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" target='_blank' href="https://testnet.zora.co/collect/0x4af21df2dc80f617cc1f496a77bd2310685f1710" rel="noreferrer">Mint</a>
+                                <a className="nav-link" target='_blank' href={`https://testnet.zora.co/collect/${proxyAdr}`} rel="noreferrer">Mint</a>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link" to="/about">About</Link>

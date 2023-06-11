@@ -4,6 +4,7 @@ import TokenEdit from './TokenEdit';
 import { useParams } from 'react-router-dom';
 import { Alert, Container } from '@mui/material';
 import ContractContext from '../ContractContext';
+import { proxyAdr } from '../Contracts';
 
 function MainPage() {
 
@@ -35,7 +36,7 @@ function MainPage() {
                 <Alert severity='info' sx={{ fontFamily: "monospace", fontWeight: 'bold', fontSize: "18px" }}>
                     {
                         total < 10000 &&
-                        <span>{total}/10000 Minted! You can <a href="https://testnet.zora.co/collect/0x4af21df2dc80f617cc1f496a77bd2310685f1710" target="_blank">mint now</a>!</span>
+                        <span>{total}/10000 Minted! You can <a href={`https://testnet.zora.co/collect/${proxyAdr}`} target="_blank">mint now</a>!</span>
                     }
                     {
                         total >= 10000 &&
