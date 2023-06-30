@@ -24,16 +24,10 @@ function Footer() {
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <ContractCard network="goerli" address="0x4af21df2dc80f617cc1f496a77bd2310685f1710" title="Contract" />
+                    <ContractCard network="goerli" address="0xa2804c5C55e9ab18458CB6A17D600E76a15C7f2A" title="Contract" />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <ContractCard network="goerli" address="0x8e9f494a0e94909f94697A42dd0b4899505FeCBF" title="Engine" />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <ContractCard network="sepolia" address="0x3217bD371E66f195E9Af082bd42486B3ED250A27" title="Contract" />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <ContractCard network="sepolia" address="0x6Fd9f95566ebfbB254F64AE0F8D3b4eAd555cCed" title="Engine" />
+                    <ContractCard network="goerli" address="0x9e43180a5E4D82B0961Da1ec54366bf67214B87c" title="Renderer" />
                 </Grid>
             </Grid>
         </footer>
