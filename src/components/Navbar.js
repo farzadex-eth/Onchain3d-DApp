@@ -23,9 +23,6 @@ function Navbar() {
                                 <a className="nav-link" target='_blank' href="https://goerli.onchain3d.xyz" rel="noreferrer">Goerli</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" target='_blank' href="https://sepolia.onchain3d.xyz" rel="noreferrer">Sepolia</a>
-                            </li>
-                            <li className="nav-item">
                                 <Link className="nav-link" to="/about">About</Link>
                             </li>
                         </ul>
