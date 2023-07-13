@@ -118,8 +118,7 @@ function TokenEdit({ setMode }) {
                                         onChange={handleTabChange}
                                         variant="scrollable"
                                         scrollButtons
-                                        allowScrollButtonsMobile
-                                        centered
+                                        allowScrollButtonsMobile        
                                     >
                                         {
                                             settingProperties.map((s) => (

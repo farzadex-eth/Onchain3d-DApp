@@ -17,7 +17,7 @@ const args = {
   networks: [networkInfo],
 }
 
-const zdk = new ZDK(args) 
+const zdk = new ZDK(args)
 
 const ContractContext = createContext();
 
@@ -56,6 +56,13 @@ export function ContractProvider({ children }) {
   }
 
   /* global BigInt */
+  const colorCompressor = (color) => {
+    const r = (color & 0xF0) >>> 4;
+    const g = (color & 0xF000) >>> 8;
+    const b = (color & 0xF00000) >>> 12;
+    return (r + g+ b);
+  }
+
   const compressSettings = (settings) => {
     const compressed = 0n +
       BigInt(settings.rotating_mode * 1) +
@@ -63,8 +70,8 @@ export function ContractProvider({ children }) {
       BigInt(settings.face_or_wire * 2 ** 2) +
       BigInt(settings.opacity * 2 ** 8) +
       BigInt(settings.angular_speed_deg * 2 ** 16) +
-      BigInt(settings.wire_color * 2 ** 32) +
-      BigInt(settings.back_color * 2 ** 56);
+      BigInt(colorCompressor(settings.wire_color) * 2 ** 32) +
+      BigInt(colorCompressor(settings.back_color) * 2 ** 48);
 
     return compressed;
   }
@@ -86,7 +93,7 @@ export function ContractProvider({ children }) {
   ]
 
   const getTokenPreview = async (tid, settings) => {
-    console.log(settings)
+    // console.log(compressSettings(settings))
     try {
       const prev = await contract.methods.previewTokenById(
         tid,
