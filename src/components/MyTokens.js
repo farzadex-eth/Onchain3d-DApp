@@ -16,7 +16,7 @@ function MyTokens() {
         setLoading(true);
         try {
             const tokens = await getTokensOfAddress(account);
-            setToks(tokens.tokens.nodes);
+            setToks(tokens);
         } catch (e) {
             console.log(e);
         } finally {
@@ -50,7 +50,7 @@ function MyTokens() {
                         alignItems="flex-start"
                         alignContent="stretch"
                         wrap="wrap"
-                        sx={{ my: '2rem', overflowY: 'scroll' }}
+                        sx={{ my: '2rem', overflowY: 'scroll', maxHeight: '90vh' }}
                     >
                         {
                             !account &&
@@ -60,7 +60,7 @@ function MyTokens() {
                         }
                         {
                             account &&
-                            <Box sx={{ width: '100%' }}>
+                            <Box sx={{width: '100%'}}>
                                 {
                                     loading &&
                                     <LinearProgress
@@ -74,24 +74,24 @@ function MyTokens() {
                                 {
                                     !loading && Array.isArray(toks) &&
                                     <Grid
-                                        container
-                                        spacing={1}
-                                        direction="row"
-                                        justify="space-between"
-                                        alignItems="flex-start"
-                                        alignContent="stretch"
-                                        wrap="wrap"
-                                        sx={{ width: '90%', mx: 'auto' }}
-                                        columns={10}
+                                      container
+                                      spacing={1}
+                                      direction="row"
+                                      justify="space-between"
+                                      alignItems="flex-start"
+                                      alignContent="stretch"
+                                      wrap="wrap"
+                                      sx={{width: '90%', mx: 'auto'}}
+                                      columns={10}
                                     >
                                         <Grid item xs={10}>{toks.length} Tokens</Grid>
-                                        {
-                                            toks.map((item) => (
-                                                <Grid item xs={2} key={item.token.tokenId} sx={{ cursor: 'pointer' }}>
-                                                    <TokenThumbnail token={item.token} />
-                                                </Grid>
-                                            ))
-                                        }
+                                      {
+                                        toks.map((item) => (
+                                            <Grid item xs={2} key={item} sx={{cursor: 'pointer'}}>
+                                                <TokenThumbnail token={item} />
+                                            </Grid>
+                                        ))
+                                      }
                                     </Grid>
                                 }
                             </Box>

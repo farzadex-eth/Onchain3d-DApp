@@ -119,7 +119,7 @@ const defaultColors = [
 
 export function TokenProvider({ children }) {
 
-    const [token, setToken] = useState({ tid: 1, svg: "", settings: [] });
+    const [token, setToken] = useState({ tid: 0, svg: "", settings: [] });
     const [preview, setPreview] = useState({});
 
     return (

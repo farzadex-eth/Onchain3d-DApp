@@ -1,12 +1,10 @@
 import React, { useContext } from 'react'
 import WalletContext from '../WalletContext'
 import { Link } from 'react-router-dom';
-import { proxyAdr } from '../Contracts';
 
 function Navbar() {
 
     const { account, walletConnect, disconnectAccount, truncateAddress } = useContext(WalletContext);
-
 
     return (
         <>
@@ -14,7 +12,7 @@ function Navbar() {
                 <div className="container justify-content-between">
                     <a className="navbar-brand" href="/">
                         <img src='logo192.png' alt='logo' width="50px" />
-                        <span style={{ margin: '0 0.5rem', display: 'inline-block' }}>OnChain3D - Goerli</span>
+                        <span style={{margin: '0 0.5rem', display: 'inline-block'}}>OnChain3D - Goerli</span>
                     </a>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
@@ -31,8 +29,8 @@ function Navbar() {
                                 <Link className="nav-link" to="/mytokens">My Tokens</Link>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" target='_blank' href={`https://testnet.zora.co/collect/${proxyAdr}`} rel="noreferrer">Mint</a>
-                            </li>
+                                <Link className="nav-link" to="/mint">Mint</Link>
+                            </li>       
                             <li className="nav-item">
                                 <Link className="nav-link" to="/about">About</Link>
                             </li>

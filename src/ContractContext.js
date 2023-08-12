@@ -1,23 +1,8 @@
 import { createContext, useContext, useState } from "react";
 import Web3 from "web3";
 import WalletContext from "./WalletContext";
-import { Alert, AlertTitle, Box, Button, Link, Modal, Typography } from "@mui/material";
-import { ZDK, ZDKNetwork, ZDKChain } from "@zoralabs/zdk";
-import { contractAdr, contractABI, proxyAdr } from "./Contracts";
-
-
-const networkInfo = {
-  network: ZDKNetwork.Ethereum,
-  chain: ZDKChain.Goerli,
-}
-
-const API_ENDPOINT = "https://api.zora.co/graphql";
-const args = {
-  endPoint: API_ENDPOINT,
-  networks: [networkInfo],
-}
-
-const zdk = new ZDK(args)
+import { Alert, AlertTitle, Box, Button, Modal, Typography, Link } from "@mui/material";
+import { contractAdr, contractABI, proxyAdr, proxyABI } from "./Contracts";
 
 const ContractContext = createContext();
 
@@ -25,8 +10,12 @@ export function ContractProvider({ children }) {
 
   const { account } = useContext(WalletContext);
 
+
   const web3 = new Web3("https://ethereum-goerli-rpc.allthatnode.com");
   const contract = new web3.eth.Contract(contractABI, contractAdr);
+  const proxy = new web3.eth.Contract(proxyABI, proxyAdr);
+
+  const MINT_PRICE = 0.002;
 
   const getTokenURI = async (tokenId) => {
     try {
@@ -81,6 +70,7 @@ export function ContractProvider({ children }) {
     arr.forEach((num) => {
       hexString += web3.utils.padLeft(web3.utils.numberToHex(num), 6).replace('0x', '');
     })
+    // return web3.utils.hexToBytes(hexString);
     return hexString;
   }
 
@@ -93,7 +83,7 @@ export function ContractProvider({ children }) {
   ]
 
   const getTokenPreview = async (tid, settings) => {
-    // console.log(compressSettings(settings))
+    // console.log(settings)
     try {
       const prev = await contract.methods.previewTokenById(
         tid,
@@ -101,13 +91,17 @@ export function ContractProvider({ children }) {
         compressSettings(settings),
         colorListToBytes(settings.color_list.slice(0, shapes[tid % 5].faces))
       ).call();
+      console.log(prev)
       return prev;
     } catch (e) {
       throw new Error(e);
     }
   }
 
+  const [writeMode, setWriteMode] = useState("mint");
   const [changed, setChanged] = useState(false);
+  const [minted, setMinted] = useState(false);
+  const [mintNum, setMintNum] = useState(0);
   const [error, setError] = useState('');
   const [open, setOpen] = useState(false);
   const [txhash, setTxhash] = useState('');
@@ -128,8 +122,10 @@ export function ContractProvider({ children }) {
 
     setOpen(true);
     setChanged(false);
+    setMinted(false);
     setError(false);
     setTxhash('');
+    setWriteMode("settings");
 
     const w = new Web3(window.ethereum);
     const c = new w.eth.Contract(contractABI, contractAdr);
@@ -159,29 +155,61 @@ export function ContractProvider({ children }) {
 
   }
 
-  const getTokensOfAddress = async (ownerAdr) => {
-    const where = {
-      collectionAddresses: proxyAdr,
-      ownerAddresses: ownerAdr,
-    }
-    const tokens = await zdk.tokens(
+  const mintTokens = async (num) => {
+
+    setOpen(true);
+    setChanged(false);
+    setMinted(false);
+    setError(false);
+    setTxhash('');
+    setMintNum(num);
+    setWriteMode("mint");
+
+    const w = new Web3(window.ethereum);
+    const c = new w.eth.Contract(proxyABI, proxyAdr);
+
+    c.methods.mintToken(num).send(
       {
-        where: where,
+        from: account,
+        value: web3.utils.toWei(String(num * MINT_PRICE), 'ether')
       }
     )
+      .on('transactionHash', (hash) => {
+        console.log(hash);
+        setTxhash(hash);
+      })
+      .on('receipt', (rec) => {
+        console.log(rec);
+        setMinted(true);
+      })
+      .on('error', (error, receipt) => {
+        console.log(error);
+        setError(error.message);
+      })
+
+  }
+
+  const getTokensOfAddress = async (ownerAdr) => {
+    let tokens = [];
+    try {
+      const balance = await proxy.methods.balanceOf(ownerAdr).call();
+      for (let i = 0; i < balance; i++) {
+        const tid = await proxy.methods.tokenOfOwnerByIndex(ownerAdr, i).call();
+        tokens.push(tid);
+      }
+    } catch (e) {
+      throw new Error(e);
+    }
     return tokens;
   }
 
   const totalMinted = async () => {
-    const where = {
-      collectionAddresses: proxyAdr,
+    try {
+      const total = await proxy.methods.totalSupply().call();
+      return total;
+    } catch (e) {
+      throw new Error(e);
     }
-    const stat = await zdk.nftCount(
-      {
-        where: where,
-      }
-    )
-    return stat.aggregateStat.nftCount;
   }
 
 
@@ -190,11 +218,13 @@ export function ContractProvider({ children }) {
     <ContractContext.Provider value={{
       contractAdr: contractAdr,
       contractABI: contractABI,
+      MINT_PRICE: MINT_PRICE,
       getTokenURI: getTokenURI,
       renderTokenById: renderTokenById,
       getSetting: getSetting,
       getTokenPreview: getTokenPreview,
       setTokenSettings: setTokenSettings,
+      mintTokens: mintTokens,
       getTokensOfAddress: getTokensOfAddress,
       totalMinted: totalMinted,
     }}>
@@ -204,7 +234,16 @@ export function ContractProvider({ children }) {
         onClose={handleModalClose}
       >
         <Box className="tx-modal">
-          <Typography variant='title' display='block' sx={{ textAlign: 'center', color: 'black' }}>Submit changes to token</Typography>
+          <Typography variant='title' display='block' sx={{ textAlign: 'center', color: 'black' }}>
+            {
+              writeMode === "settings" &&
+              <span>Submit changes to token</span>
+            }
+            {
+              writeMode === "mint" &&
+              <span>Minting {mintNum} Tokens</span>
+            }
+          </Typography>
           {
             txhash &&
             <>
@@ -218,7 +257,7 @@ export function ContractProvider({ children }) {
             </>
           }
           {
-            !error && !changed && txhash &&
+            !(error || changed || minted) && txhash &&
             <div>
               <img src='txloading.jpg' className='loadinganimw' alt="tx-waiting" />
             </div>
@@ -241,7 +280,16 @@ export function ContractProvider({ children }) {
             </>
           }
           {
-            (error || changed) &&
+            minted &&
+            <>
+              <Alert severity='success' sx={{ my: '1rem', fontFamily: 'inherit' }}>
+                <AlertTitle sx={{ fontFamily: 'inherit' }}>Tokens Minted Successfully</AlertTitle>
+                You can view your tokens in <a href="/mytokens">My Tokens</a> page
+              </Alert>
+            </>
+          }
+          {
+            (error || changed || minted) &&
             <Button variant='contained' color='warning' onClick={closeModal} fullWidth>Close</Button>
           }
 

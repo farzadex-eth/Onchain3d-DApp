@@ -1,10 +1,9 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import TokenView from './TokenView';
 import TokenEdit from './TokenEdit';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { Alert, Container } from '@mui/material';
 import ContractContext from '../ContractContext';
-import { proxyAdr } from '../Contracts';
 
 function MainPage() {
 
@@ -35,12 +34,12 @@ function MainPage() {
             <Container maxWidth="lg">
                 <Alert severity='info' sx={{ fontFamily: "monospace", fontWeight: 'bold', fontSize: "18px" }}>
                     {
-                        total < 10000 &&
-                        <span>{total}/10000 Minted! You can <a href={`https://testnet.zora.co/collect/${proxyAdr}`} target="_blank">mint now</a>!</span>
+                        total < 2000 &&
+                        <span>{total}/2000 Minted! You can <Link to="/mint">mint now</Link>!</span>
                     }
                     {
-                        total >= 10000 &&
-                        <span>Sold Out! 10000/10000</span>
+                        total >= 2000 &&
+                        <span>Sold Out! 2000/2000</span>
                     }
                 </Alert>
             </Container>

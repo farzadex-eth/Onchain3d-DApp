@@ -3,6 +3,7 @@ import About from './components/About';
 import Background from './components/Background';
 import MainPage from './components/MainPage';
 import MyTokens from './components/MyTokens';
+import Mint from './components/Mint';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import { ContractProvider } from './ContractContext';
@@ -27,6 +28,7 @@ function App() {
               <Route exact path="/" element={<MainPage />} />
               <Route exact path="/:tid" element={<MainPage />} />
               <Route exact path="/mytokens" element={<MyTokens />} />
+              <Route exact path="/mint" element={<Mint />} />
               <Route exact path="/about" element={<About />} />
             </Routes>
           </Router>

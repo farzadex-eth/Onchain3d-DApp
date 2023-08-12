@@ -2,6 +2,7 @@ import { Avatar, Card, Grid } from '@mui/material'
 import React from 'react'
 import TwitterCard from './TwitterCard'
 import ContractCard from './ContractCard'
+import { contractAdr, proxyAdr } from '../Contracts'
 
 function Footer() {
     return (
@@ -24,10 +25,10 @@ function Footer() {
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <ContractCard network="goerli" address="0xa2804c5C55e9ab18458CB6A17D600E76a15C7f2A" title="Contract" />
+                    <ContractCard network="goerli" address={proxyAdr} title="Contract" />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <ContractCard network="goerli" address="0x9e43180a5E4D82B0961Da1ec54366bf67214B87c" title="Renderer" />
+                    <ContractCard network="goerli" address={contractAdr} title="Engine" />
                 </Grid>
             </Grid>
         </footer>
