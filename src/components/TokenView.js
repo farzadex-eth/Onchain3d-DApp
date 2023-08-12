@@ -17,10 +17,10 @@ function TokenView({ setMode, search }) {
     const handleInput = (e) => {
         const val = parseInt(e.target.value);
         if (isNaN(val)) {
-            setTid(0);
+            setTid(1);
             return;
         }
-        setTid(Math.max(0, Math.min(val, 499)));
+        setTid(Math.max(0, Math.min(val, 9999)));
     }
 
     const fetchToken = async (e) => {
@@ -75,6 +75,7 @@ function TokenView({ setMode, search }) {
         if(search && !isNaN(search)) {
             hasParam();
         }
+        // eslint-disable-next-line
     }, [search])
 
     return (
@@ -115,7 +116,7 @@ function TokenView({ setMode, search }) {
                         {
                             loading &&
                             <div className="mt-2">
-                            <img src='loading.jpg' className='loadinganim'/>
+                            <img src='loading.jpg' className='loadinganim' alt='token-view-loading'/>
                             <LinearProgress
                                 sx={{
                                     width: "80%",
@@ -185,7 +186,6 @@ function TokenView({ setMode, search }) {
                                             >
                                                 <Grid item xs="12" className="rowanim">Face Colors: </Grid>
                                                 {
-                                                    // token.settings.color_list.length > 0 &&
                                                     token.settings.color_list.slice(0, shapes[token.tid % 5].faces).map((num, index) => (
                                                         <Grid item xs="3" key={index}>
                                                             {index < 10 ? <span>&nbsp;{index}</span> : index}
