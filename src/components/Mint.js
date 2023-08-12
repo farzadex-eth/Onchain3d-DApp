@@ -5,7 +5,7 @@ import WalletContext from '../WalletContext';
 
 function Mint() {
 
-    const { totalMinted, mintTokens } = useContext(ContractContext);
+    const { totalMinted, mintTokens, MINT_PRICE } = useContext(ContractContext);
     const { account, chainId, changeNetwork } = useContext(WalletContext);
 
     const [total, setTotal] = useState("_");
@@ -23,7 +23,7 @@ function Mint() {
             setNum(1);
             return;
         }
-        const max = Math.min(10, 10000 - total);
+        const max = Math.min(10, 2000 - total);
         setNum(Math.max(1, Math.min(max, val)));
     }
     
@@ -56,12 +56,12 @@ function Mint() {
                         <Grid item xs={12} sx={{ mb: '2rem' }}>
                             <Alert severity='info' sx={{ fontFamily: "monospace", fontWeight: 'bold', fontSize: "18px" }}>
                                 {
-                                    total < 10000 &&
-                                    <span>{total}/10000 Minted!</span>
+                                    total < 2000 &&
+                                    <span>{total}/2000 Minted!</span>
                                 }
                                 {
-                                    total >= 10000 &&
-                                    <span>Sold Out! 10000/10000</span>
+                                    total >= 2000 &&
+                                    <span>Sold Out! 2000/2000</span>
                                 }
                             </Alert>
                         </Grid>
@@ -70,13 +70,13 @@ function Mint() {
                             <Slider
                                 marks
                                 min={1}
-                                max={Math.min(10, 10000 - total) || 10}
+                                max={Math.min(10, 2000 - total) || 10}
                                 step={1}
                                 value={num}
                                 onChange={handleNumInput}
                                 sx={{ fontFamily: 'monospace', width: "80%" }}
                             />
-                            <p>Price: {num * 0.02} ETH</p>
+                            <p>Price: {(num * MINT_PRICE).toFixed(3)} ETH</p>
                         </Grid>
                         <Grid item xs={12} sm={6} sx={{mb: '1rem'}}>
                             {

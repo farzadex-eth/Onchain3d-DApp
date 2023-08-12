@@ -15,6 +15,8 @@ export function ContractProvider({ children }) {
   const contract = new web3.eth.Contract(contractABI, contractAdr);
   const proxy = new web3.eth.Contract(proxyABI, proxyAdr);
 
+  const MINT_PRICE = 0.002;
+
   const getTokenURI = async (tokenId) => {
     try {
       const uri = await contract.methods.tokenURI(tokenId).call();
@@ -169,7 +171,7 @@ export function ContractProvider({ children }) {
     c.methods.mintToken(num).send(
       {
         from: account,
-        value: web3.utils.toWei(String(num * 0.02), 'ether')
+        value: web3.utils.toWei(String(num * MINT_PRICE), 'ether')
       }
     )
       .on('transactionHash', (hash) => {
@@ -216,6 +218,7 @@ export function ContractProvider({ children }) {
     <ContractContext.Provider value={{
       contractAdr: contractAdr,
       contractABI: contractABI,
+      MINT_PRICE: MINT_PRICE,
       getTokenURI: getTokenURI,
       renderTokenById: renderTokenById,
       getSetting: getSetting,
