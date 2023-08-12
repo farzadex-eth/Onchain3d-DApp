@@ -76,21 +76,21 @@ function Mint() {
                                 onChange={handleNumInput}
                                 sx={{ fontFamily: 'monospace', width: "80%" }}
                             />
-                            <p>Price: {num * 0.01} ETH</p>
+                            <p>Price: {num * 0.02} ETH</p>
                         </Grid>
                         <Grid item xs={12} sm={6} sx={{mb: '1rem'}}>
                             {
                                 account &&
                                 <>
                                     {
-                                        (String(chainId) === '11155111' || String(chainId) === '0xaa36a7') &&
+                                        (String(chainId) === '5' || String(chainId) === '0x5') &&
                                         <Button variant="contained" color="success" size="large" fullWidth onClick={() => mintTokens(num)}>Mint Tokens</Button>
                                     }
                                     {
-                                        !(String(chainId) === '11155111' || String(chainId) === '0xaa36a7') &&
+                                        !(String(chainId) === '5' || String(chainId) === '0x5') &&
                                         <>
-                                            <p>Change your network to Sepolia Testnet</p>
-                                            <Button variant="contained" color="success" size="large" onClick={() => changeNetwork('Sepolia Testnet')}>Change Network to Sepolia</Button>
+                                            <p>Change your network to Goerli Testnet</p>
+                                            <Button variant="contained" color="success" size="large" onClick={() => changeNetwork('Goerli Testnet')}>Change Network to Goerli</Button>
                                         </>
                                     }
                                 </>

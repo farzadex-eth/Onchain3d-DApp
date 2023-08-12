@@ -119,7 +119,7 @@ function TokenEdit({ setMode }) {
                                         variant="scrollable"
                                         scrollButtons
                                         allowScrollButtonsMobile
-                                        centered
+                                        // centered
                                     >
                                         {
                                             settingProperties.map((s) => (

@@ -11,7 +11,7 @@ export function ContractProvider({ children }) {
   const { account } = useContext(WalletContext);
 
 
-  const web3 = new Web3("https://rpc.sepolia.org");
+  const web3 = new Web3("https://ethereum-goerli-rpc.allthatnode.com");
   const contract = new web3.eth.Contract(contractABI, contractAdr);
   const proxy = new web3.eth.Contract(proxyABI, proxyAdr);
 
@@ -161,7 +161,7 @@ export function ContractProvider({ children }) {
     c.methods.mintToken(num).send(
       {
         from: account,
-        value: web3.utils.toWei(String(num * 0.01), 'ether')
+        value: web3.utils.toWei(String(num * 0.02), 'ether')
       }
     )
       .on('transactionHash', (hash) => {

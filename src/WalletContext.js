@@ -46,12 +46,12 @@ export function WalletProvider({ children }) {
     }
 
     const networkSetting = {
-        'Sepolia Testnet': {
-            chainId: '0xaa36a7',
-            chainName: 'Sepolia Testnet',
+        'Goerli Testnet': {
+            chainId: '0x5',
+            chainName: 'Goerli Testnet',
             nativeCurrency: { name: 'ETH', decimals: 18, symbol: 'ETH' },
-            rpcUrls: ['https://rpc2.sepolia.org'],
-            blockExplorerUrls: ['https://sepolia.etherscan.io'],
+            rpcUrls: ['https://goerli.infura.io/v3/'],
+            blockExplorerUrls: ['https://etherscan.io'],
         },
     }
 
